@@ -62,6 +62,7 @@ def parse_input_file(path):
     for line in lines:
         cars.append(parse_car_line(line,streets))
 
+    file.close()
     return init_variables, streets, cars
 
 def parse_state_file(path,streets):
@@ -79,4 +80,5 @@ def parse_state_file(path,streets):
             street = next((x for x in streets if x.street_name==street_name),None)
             intersection.insert_traffic_light(TrafficLight(street,time))
         intersections.append(intersection)
+    file.close()
     return intersections

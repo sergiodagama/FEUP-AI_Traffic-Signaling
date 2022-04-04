@@ -96,6 +96,15 @@ class Simulation:
             case "path":
                 return self.create_state_from_path(path,streets)
 
+    def output_state_file(self, output_file_path):
+        file = open(output_file_path, 'x')
+        file.write(len(self.intersections) + "\n")
+        for intersection in self.intersections:
+            file.write(intersection.id + "\n")
+            file.write(len(intersection.traffic_lights) + "\n")
+            for traffic_light in intersection.traffic_lights:
+                file.write(traffic_light.street.street_name + traffic_light.time + "\n")
+        file.close()
 
 
     def score_evaluation(self):
