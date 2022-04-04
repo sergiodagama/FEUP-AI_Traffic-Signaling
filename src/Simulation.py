@@ -5,10 +5,10 @@ import random
 
 # attributes are "duration", "n_intersections", "n_streets", "n_cars", "bonus"
 class Simulation:
-    def __init__(self, input_path, intersection_path=0):
+    def __init__(self, input_path,state_mode, intersection_path=0):
         self.attributes, self.streets, self.cars = Parser.parse_input_file(input_path)
         self.current_time = 0
-        self.intersections = self.calculate_intersections(intersection_path)
+        self.intersections = self.create_state(state_mode, intersection_path, self.streets)
 
     def convert_state(self, state):
         # TODO: converts a state into data to be used in the simulation
@@ -70,19 +70,32 @@ class Simulation:
     #       run()
 
     def create_random_state(self):
+        random.seed()
         intersections = []
         for car in self.cars:
             for street in car.path:
                 id = street.end_intersection
-                if not next((x for x in intersections if x.id == id), False):
+                old_intersection = next((x for x in intersections if x.id == id), None)
+                if old_intersection is None:
                     new_intersection = Intersection(id)
-                    new_intersection.insert_traffic_light(street, random(0, self.attributes["duration"]))
+                    new_intersection.insert_traffic_light(TrafficLight(street, random.randint(1, self.attributes["duration"])))
                     intersections.append(new_intersection)
+                elif not old_intersection.has_street(street):
+                    old_intersection.insert_traffic_light(TrafficLight(street, random.randint(1, self.attributes["duration"])))
+        return intersections
 
-    def create_state(self, path):
-        switch()
 
-    def create_intersections(state):
+    def create_state_from_path(self,path, streets):
+        return parse_state_file(path, streets)
+
+
+    def create_state(self, mode, path=0, streets):
+        match mode:
+            case "random":
+                return self.create_random_state()
+            case "path":
+                return self.create_state_from_path(path,streets)
+
 
 
     def score_evaluation(self):

@@ -1,5 +1,7 @@
 import Street
 import Car
+import Intersection
+
 
 # parses the first line
 # of the input file
@@ -51,7 +53,7 @@ def parse_input_file(path):
     streets = []
     cars = []
 
-    lines = file.readline()
+    lines = file.readlines()
     init_variables = parse_first_line(lines.pop(0))
 
     for i in range(0, init_variables["n_streets"]):
@@ -62,3 +64,19 @@ def parse_input_file(path):
 
     return init_variables, streets, cars
 
+def parse_state_file(path,streets):
+    file = open(path, 'r')
+
+    intersections = []
+
+    lines = file.readlines()
+
+    num_of_intersections = lines.pop(0)
+    for i in range(num_of_intersections):
+        intersection = Intersection(lines.pop(0))
+        for j in lines.pop(): #num of streets
+            street_name, time = lines.pop()
+            street = nex(x for x in streets if x.street_name==street_name,None)
+            intersection.insert_traffic_light(TrafficLight(street,time))
+        intersections.append(intersection)
+    return intersections
