@@ -23,3 +23,7 @@ class Intersection:
             self.traffic_lights[self.current_light].update_time()
         self.traffic_lights[self.current_light].current_time -= 1
         return self.traffic_lights[self.current_light].remove_car()
+
+    def draw(self):
+        print("Intersection ID: " + str(self.id), end="")
+        print("Current traffic light: " + str(self.traffic_lights[self.current_light].street.street_name))

@@ -3,10 +3,10 @@ from Simulation import Simulation
 
 
 def main():
-    sim = Simulation("docs/city_plans/city_plan_1","path", "docs/schedules/schedule1") 
+    sim = Simulation("docs/city_plans/city_plan_1.txt","path", "docs/schedules/schedule1.txt") 
     sim.run()
-    print(sim.score)
-    sim.output_state_file("docs/schedules/result", 'w')
+    sim.output_state_file("docs/schedules/result.txt", 'w')
+    print("The Simulation score is: " + str(sim.score))
 
 
 

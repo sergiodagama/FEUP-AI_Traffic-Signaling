@@ -29,6 +29,7 @@ class Simulation:
                 car = intersection.run()
                 if car is not None:
                     car.enter_next_street()
+            self.draw()
 
     # pre: fill traffic lights with cars
     # pre: fill intersections with traffic lights
@@ -132,8 +133,13 @@ class Simulation:
 
 
 
-
-
+    def draw(self):
+        for car in self.cars:
+            car.draw()
+        for inter in self.intersections:
+            inter.draw()
+        print("Press to Continue")
+        input()
 
 
 

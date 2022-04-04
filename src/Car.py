@@ -20,3 +20,12 @@ class Car:
         elif self.current_street +1 == self.path_length:
             return 2
         return 1
+
+    def draw(self):
+        for i in range(self.path_length):
+            print(self.path[i].street_name,  end=" ")
+        print("\nCurrently on :", end="")
+        print(self.path[self.current_street].street_name)
+        print("Remaining Cost: ", end="")
+        print(self.remaining_cost)
+        print("\n")

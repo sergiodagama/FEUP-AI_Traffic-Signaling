@@ -36,11 +36,11 @@ def parse_street_line(line):
 def parse_car_line(line, streets):
     splitted = line.split()
 
-    path_length = splitted[0]
+    path_length = int(splitted[0])
     path = []
 
-    for i in range(1, len(splitted)+1):
-        path.append(x for x in streets if x.street_name == splitted[i])
+    for i in range(1, len(splitted)):
+        path.append(next((x for x in streets if x.street_name == splitted[i]),None))
 
     car = Car(path_length, path)
 
@@ -55,6 +55,7 @@ def parse_input_file(path):
     cars = []
 
     lines = file.readlines()
+
     init_variables = parse_first_line(lines.pop(0))
 
     for i in range(0, int(init_variables["n_streets"])):
