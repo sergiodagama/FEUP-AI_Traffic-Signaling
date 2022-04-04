@@ -1,6 +1,7 @@
 import Street
 import Car
 import Intersection
+from Trafficlight import *
 
 
 # parses the first line

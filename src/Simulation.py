@@ -1,4 +1,4 @@
-import Parser
+from Parser import *
 import Intersection
 import random
 
@@ -6,19 +6,29 @@ import random
 # attributes are "duration", "n_intersections", "n_streets", "n_cars", "bonus"
 class Simulation:
     def __init__(self, input_path,state_mode, intersection_path=0):
-        self.attributes, self.streets, self.cars = Parser.parse_input_file(input_path)
-        self.current_time = 0
+        self.attributes, self.streets, self.cars = parse_input_file(input_path)
+        self.duration = self.attributes["duration"]
+        self.bonus = self.attributes["bonus"]
+        self.score = 0
         self.intersections = self.create_state(state_mode, self.streets, intersection_path)
 
     def convert_state(self, state):
         # TODO: converts a state into data to be used in the simulation
+        return 0
 
     def run(self):
-        for i in range(0, self.attributes["duration"]):
-            for car in self.cars:
-                # TODO
-            for intersection in self.intersections:
-                # TODO
+        for time in range(1, self.attributes["duration"]+1):
+            for car in self.cars:       # cars decrease remaining cost, if it reaches 0 they queue on TrafficLight
+                car_position = car.drive
+                if(car_position == 1):     # car did not reach end of the road
+                    light = next((x.traffic_lights for x in self.intersections if x.traffic_lights.street == car.current_street()),None)
+                    light.add_car(car)
+                elif(car_position == 2):    #car reached end, add to score
+                    self.score += self.bonus + self.duration - time
+            for intersection in self.intersections:     #first update which traffic light is on, then dequeue one form the green light
+                car = intersection.run()
+                if car is not None:
+                    car.enter_next_street()
 
     # pre: fill traffic lights with cars
     # pre: fill intersections with traffic lights
@@ -89,7 +99,7 @@ class Simulation:
         return parse_state_file(path, streets)
 
 
-    def create_state(self, mode, street, path=0):
+    def create_state(self, mode, streets, path=0):
         match mode:
             case "random":
                 return self.create_random_state()

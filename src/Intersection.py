@@ -1,18 +1,24 @@
 import Trafficlight
 
 class Intersection:
-    def __init__(self, id, traffic_lights):
-        # self.streets = []
-        self.id = id
-        self.traffic_lights = traffic_lights
 
     def __init__(self, id):
         # self.streets = []
         self.id = id
         self.traffic_lights = []
+        self.current_light = 0
+        self.num_of_lights = 0
 
     def insert_traffic_light(self, traffic_light):
         self.traffic_lights.append(traffic_light)
+        self.num_of_lights += 1
 
     def has_street(self,street):
         next((True for x in self.traffic_lights if x.street == street), False)
+
+    def run(self):
+        while self.traffic_lights[self.current_light].current_time == 0:
+            self.current_light +=1
+            self.traffic_lights[self.current_light].update_time()
+        self.traffic_lights[self.current_light].current_time -= 1
+        return self.traffic_lights[self.current_light].remove_car()
