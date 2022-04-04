@@ -19,6 +19,7 @@ class Intersection:
     def run(self):
         while self.traffic_lights[self.current_light].current_time == 0:
             self.current_light +=1
+            self.current_light %= self.num_of_lights
             self.traffic_lights[self.current_light].update_time()
         self.traffic_lights[self.current_light].current_time -= 1
         return self.traffic_lights[self.current_light].remove_car()

@@ -3,19 +3,20 @@ import queue
 
 class TrafficLight:
     def __init__(self, street, time):
-        self.queue = queue.Queue
+        self.my_queue = queue.Queue()
         self.time = time
         self.street = street
         self.current_time = time
         self.green_light = False
 
     def add_car(self, car):
-        self.queue.put(car)
+        self.my_queue.put(car)
 
     def remove_car(self):
-        if self.queue.empty():
+        try:
+            return self.my_queue.get(False)
+        except queue.Empty:
             return None
-        return self.queue.get()
 
 
     def swap_light(self):

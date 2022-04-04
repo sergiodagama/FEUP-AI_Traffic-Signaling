@@ -1,5 +1,5 @@
 from Parser import *
-import Intersection
+from Intersection import *
 import random
 
 
@@ -7,8 +7,8 @@ import random
 class Simulation:
     def __init__(self, input_path,state_mode, intersection_path=0):
         self.attributes, self.streets, self.cars = parse_input_file(input_path)
-        self.duration = self.attributes["duration"]
-        self.bonus = self.attributes["bonus"]
+        self.duration = int(self.attributes["duration"])
+        self.bonus = int(self.attributes["bonus"])
         self.score = 0
         self.intersections = self.create_state(state_mode, self.streets, intersection_path)
 
@@ -17,7 +17,7 @@ class Simulation:
         return 0
 
     def run(self):
-        for time in range(1, self.attributes["duration"]+1):
+        for time in range(1, self.duration+1):
             for car in self.cars:       # cars decrease remaining cost, if it reaches 0 they queue on TrafficLight
                 car_position = car.drive
                 if(car_position == 1):     # car did not reach end of the road
@@ -100,20 +100,23 @@ class Simulation:
 
 
     def create_state(self, mode, streets, path=0):
-        match mode:
-            case "random":
-                return self.create_random_state()
-            case "path":
-                return self.create_state_from_path(path,streets)
+        if mode == "random":
+            return self.create_random_state()
+        if mode == "path":
+            return self.create_state_from_path(path,streets)
 
-    def output_state_file(self, output_file_path):
-        file = open(output_file_path, 'x')
-        file.write(len(self.intersections) + "\n")
+    def output_state_file(self, output_file_path, mode):
+        file = open(output_file_path, mode)
+        file.write(str(len(self.intersections)))
+        file.write("\n")
         for intersection in self.intersections:
-            file.write(intersection.id + "\n")
-            file.write(len(intersection.traffic_lights) + "\n")
+            file.write(intersection.id)
+            # file.write("\n")
+            file.write(str(len(intersection.traffic_lights)))
+            file.write("\n")
             for traffic_light in intersection.traffic_lights:
-                file.write(traffic_light.street.street_name + traffic_light.time + "\n")
+                file.write(traffic_light.street.street_name + " " + str(traffic_light.time))
+                file.write("\n")
         file.close()
 
 
