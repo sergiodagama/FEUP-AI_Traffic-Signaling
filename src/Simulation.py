@@ -8,7 +8,7 @@ class Simulation:
     def __init__(self, input_path,state_mode, intersection_path=0):
         self.attributes, self.streets, self.cars = Parser.parse_input_file(input_path)
         self.current_time = 0
-        self.intersections = self.create_state(state_mode, intersection_path, self.streets)
+        self.intersections = self.create_state(state_mode, self.streets, intersection_path)
 
     def convert_state(self, state):
         # TODO: converts a state into data to be used in the simulation
@@ -89,7 +89,7 @@ class Simulation:
         return parse_state_file(path, streets)
 
 
-    def create_state(self, mode, path=0, streets):
+    def create_state(self, mode, street, path=0):
         match mode:
             case "random":
                 return self.create_random_state()

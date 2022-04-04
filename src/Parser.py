@@ -76,7 +76,7 @@ def parse_state_file(path,streets):
         intersection = Intersection(lines.pop(0))
         for j in lines.pop(): #num of streets
             street_name, time = lines.pop()
-            street = nex(x for x in streets if x.street_name==street_name,None)
+            street = next((x for x in streets if x.street_name==street_name),None)
             intersection.insert_traffic_light(TrafficLight(street,time))
         intersections.append(intersection)
     return intersections
