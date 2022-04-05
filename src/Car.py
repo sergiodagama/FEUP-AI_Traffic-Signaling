@@ -16,12 +16,11 @@ class Car:
 
     def drive(self):
         self.remaining_cost -= 1
-        if self.remaining_cost > 0:
-            return 0
-        elif self.current_street+1 == self.path_length:
-            return 2
-        elif self.remaining_cost == 0:
-            return 1
+        if self.remaining_cost <= 0:
+            if self.current_street+1 == self.path_length:
+                return 2
+            elif self.remaining_cost == 0:
+                return 1
         else:
             return 0
 
