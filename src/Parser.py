@@ -1,5 +1,8 @@
-import Street
-import Car
+from Street import Street
+from Car import Car
+from Intersection import Intersection
+from Trafficlight import TrafficLight
+
 
 # parses the first line
 # of the input file
@@ -19,10 +22,10 @@ def parse_first_line(line):
 def parse_street_line(line):
     splitted = line.split()
 
-    start_intersection = splitted[0]
-    end_intersection = splitted[1]
+    start_intersection = int(splitted[0])
+    end_intersection = int(splitted[1])
     street_name = splitted[2]
-    time_cost = splitted[3]
+    time_cost = int(splitted[3])
 
     street = Street(start_intersection, end_intersection, street_name, time_cost)
 
@@ -33,11 +36,11 @@ def parse_street_line(line):
 def parse_car_line(line, streets):
     splitted = line.split()
 
-    path_length = splitted[0]
+    path_length = int(splitted[0])
     path = []
 
-    for i in range(1, splitted.length+1):
-        path.append(x for x in streets if x.street_name == splitted[i])
+    for i in range(1, len(splitted)):
+        path.append(next((x for x in streets if x.street_name == splitted[i]),None))
 
     car = Car(path_length, path)
 
@@ -51,14 +54,33 @@ def parse_input_file(path):
     streets = []
     cars = []
 
-    lines = file.readline()
+    lines = file.readlines()
+
     init_variables = parse_first_line(lines.pop(0))
 
-    for i in range(0, init_variables["n_streets"]):
-        streets.append(parse_street_line(lines.pop(i)))
+    for i in range(0, int(init_variables["n_streets"])):
+        streets.append(parse_street_line(lines.pop(0)))
 
     for line in lines:
         cars.append(parse_car_line(line,streets))
 
+    file.close()
     return init_variables, streets, cars
 
+def parse_state_file(path,streets):
+    file = open(path, 'r')
+
+    intersections = []
+
+    lines = file.readlines()
+
+    num_of_intersections = int(lines.pop(0))
+    for i in range(num_of_intersections):
+        intersection = Intersection(lines.pop(0))
+        for j in range(int(lines.pop(0))): #num of streets
+            street_name, time = lines.pop(0).split()
+            street = next((x for x in streets if x.street_name==street_name),None)
+            intersection.insert_traffic_light(TrafficLight(street,int(time)))
+        intersections.append(intersection)
+    file.close()
+    return intersections

@@ -1,24 +1,41 @@
-import Parser
-import Intersection
+from Parser import parse_state_file, parse_input_file
+from Intersection import *
+from Trafficlight import TrafficLight
 import random
 
 
 # attributes are "duration", "n_intersections", "n_streets", "n_cars", "bonus"
 class Simulation:
-    def __init__(self, input_path, intersection_path=0):
-        self.attributes, self.streets, self.cars = Parser.parse_input_file(input_path)
-        self.current_time = 0
-        self.intersections = self.calculate_intersections(intersection_path)
+    def __init__(self, input_path,state_mode, intersection_path=0):
+        self.attributes, self.streets, self.cars = parse_input_file(input_path)
+        self.duration = int(self.attributes["duration"])
+        self.bonus = int(self.attributes["bonus"])
+        self.score = 0
+        self.intersections = self.create_state(state_mode, self.streets, intersection_path)
+        self.streets_to_lights = {}
+        self.init_traffic_lights()
 
     def convert_state(self, state):
         # TODO: converts a state into data to be used in the simulation
+        return 0
 
     def run(self):
-        for i in range(0, self.attributes["duration"]):
-            for car in self.cars:
-                # TODO
-            for intersection in self.intersections:
-                # TODO
+        for time in range(0, self.duration+1):
+            for car in self.cars:       # cars decrease remaining cost, if it reaches 0 they queue on TrafficLight
+                car_position = car.drive()
+                if(car_position == 1):     # car did not reach end of the road
+                    light = self.streets_to_lights[car.current_road().street_name] # next((traffic_light for inter in self.intersections for traffic_light in inter.traffic_lights if traffic_light.street==car.current_road()),None)
+                    light.add_car(car)
+                    print("\tAdding element to street: " + str(car.current_road().street_name))
+                elif(car_position == 2):    #car reached end, add to score
+                    self.score_evaluation(time)
+                    self.cars.remove(car)
+            for intersection in self.intersections:     #first update which traffic light is on, then dequeue one form the green light
+                car = intersection.run()
+                print("Running intersection: "+ str(intersection.id))
+                if car is not None:
+                    car.enter_next_street()
+            self.draw()
 
     # pre: fill traffic lights with cars
     # pre: fill intersections with traffic lights
@@ -70,28 +87,61 @@ class Simulation:
     #       run()
 
     def create_random_state(self):
+        random.seed()
         intersections = []
         for car in self.cars:
             for street in car.path:
                 id = street.end_intersection
-                if not next((x for x in intersections if x.id == id), False):
+                old_intersection = next((x for x in intersections if x.id == id), None)
+                if old_intersection is None:
                     new_intersection = Intersection(id)
-                    new_intersection.insert_traffic_light(street, random(0, self.attributes["duration"]))
+                    new_intersection.insert_traffic_light(TrafficLight(street, random.randint(1, self.attributes["duration"])))
                     intersections.append(new_intersection)
-
-    def create_state(self, path):
-        switch()
-
-    def create_intersections(state):
+                elif not old_intersection.has_street(street):
+                    old_intersection.insert_traffic_light(TrafficLight(street, random.randint(1, self.attributes["duration"])))
+        return intersections
 
 
-    def score_evaluation(self):
-        car_traverse_time =  self.attributes["duration"] - self.current_time
+    def create_state_from_path(self,path, streets):
+        return parse_state_file(path, streets)
 
-        if self.current_time <= self.attributes["duration"]:
-            score = self.attributes["bonus"] + car_traverse_time
-        else:
-            score = 0
 
-        return score
+    def create_state(self, mode, streets, path=0):
+        if mode == "random":
+            return self.create_random_state()
+        if mode == "path":
+            return self.create_state_from_path(path,streets)
+
+    def output_state_file(self, output_file_path, mode):
+        file = open(output_file_path, mode)
+        file.write(str(len(self.intersections)))
+        file.write("\n")
+        for intersection in self.intersections:
+            file.write(intersection.id)
+            # file.write("\n")
+            file.write(str(len(intersection.traffic_lights)))
+            file.write("\n")
+            for traffic_light in intersection.traffic_lights:
+                file.write(traffic_light.street.street_name + " " + str(traffic_light.time))
+                file.write("\n")
+        file.close()
+
+
+    def score_evaluation(self, time):
+        self.score += self.bonus + self.duration - time
+
+
+
+    def draw(self):
+        for car in self.cars:
+            car.draw()
+        for inter in self.intersections:
+            inter.draw()
+        print("Press to Continue")
+        input()
+
+    def init_traffic_lights(self):
+        for intersection in self.intersections:
+            for light in intersection.traffic_lights:
+                self.streets_to_lights[light.street.street_name] = light
 
