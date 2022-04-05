@@ -1,5 +1,6 @@
-from Parser import *
+from Parser import parse_state_file, parse_input_file
 from Intersection import *
+from Trafficlight import TrafficLight
 import random
 
 
@@ -17,16 +18,18 @@ class Simulation:
         return 0
 
     def run(self):
-        for time in range(1, self.duration+1):
+        for time in range(0, self.duration+1):
             for car in self.cars:       # cars decrease remaining cost, if it reaches 0 they queue on TrafficLight
-                car_position = car.drive
+                car_position = car.drive()
                 if(car_position == 1):     # car did not reach end of the road
-                    light = next((x.traffic_lights for x in self.intersections if x.traffic_lights.street == car.current_street()),None)
+                    light = next((traffic_light for inter in self.intersections for traffic_light in inter.traffic_lights if traffic_light.street==car.current_road()),None)
                     light.add_car(car)
                 elif(car_position == 2):    #car reached end, add to score
                     self.score += self.bonus + self.duration - time
+                    self.cars.remove(car)
             for intersection in self.intersections:     #first update which traffic light is on, then dequeue one form the green light
                 car = intersection.run()
+                print("Running intersection: "+ str(intersection.id))
                 if car is not None:
                     car.enter_next_street()
             self.draw()

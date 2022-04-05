@@ -15,7 +15,7 @@ class TrafficLight:
     def remove_car(self):
         try:
             return self.my_queue.get(False)
-        except queue.Empty:
+        except queue.Empty as e:
             return None
 
 

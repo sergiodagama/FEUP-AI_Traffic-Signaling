@@ -1,7 +1,7 @@
-from Street import *
-from Car import *
-from Intersection import *
-from Trafficlight import *
+from Street import Street
+from Car import Car
+from Intersection import Intersection
+from Trafficlight import TrafficLight
 
 
 # parses the first line
@@ -22,10 +22,10 @@ def parse_first_line(line):
 def parse_street_line(line):
     splitted = line.split()
 
-    start_intersection = splitted[0]
-    end_intersection = splitted[1]
+    start_intersection = int(splitted[0])
+    end_intersection = int(splitted[1])
     street_name = splitted[2]
-    time_cost = splitted[3]
+    time_cost = int(splitted[3])
 
     street = Street(start_intersection, end_intersection, street_name, time_cost)
 
