@@ -12,6 +12,8 @@ class Simulation:
         self.bonus = int(self.attributes["bonus"])
         self.score = 0
         self.intersections = self.create_state(state_mode, self.streets, intersection_path)
+        self.streets_to_lights = {}
+        self.init_traffic_lights()
 
     def convert_state(self, state):
         # TODO: converts a state into data to be used in the simulation
@@ -22,10 +24,11 @@ class Simulation:
             for car in self.cars:       # cars decrease remaining cost, if it reaches 0 they queue on TrafficLight
                 car_position = car.drive()
                 if(car_position == 1):     # car did not reach end of the road
-                    light = next((traffic_light for inter in self.intersections for traffic_light in inter.traffic_lights if traffic_light.street==car.current_road()),None)
+                    light = self.streets_to_lights[car.current_road().street_name] # next((traffic_light for inter in self.intersections for traffic_light in inter.traffic_lights if traffic_light.street==car.current_road()),None)
                     light.add_car(car)
+                    print("\tAdding element to street: " + str(car.current_road().street_name))
                 elif(car_position == 2):    #car reached end, add to score
-                    self.score += self.bonus + self.duration - time
+                    self.score_evaluation(time)
                     self.cars.remove(car)
             for intersection in self.intersections:     #first update which traffic light is on, then dequeue one form the green light
                 car = intersection.run()
@@ -124,15 +127,8 @@ class Simulation:
         file.close()
 
 
-    def score_evaluation(self):
-        car_traverse_time =  self.attributes["duration"] - self.current_time
-
-        if self.current_time <= self.attributes["duration"]:
-            score = self.attributes["bonus"] + car_traverse_time
-        else:
-            score = 0
-
-        return score
+    def score_evaluation(self, time):
+        self.score += self.bonus + self.duration - time
 
 
 
@@ -144,5 +140,9 @@ class Simulation:
         print("Press to Continue")
         input()
 
+    def init_traffic_lights(self):
+        for intersection in self.intersections:
+            for light in intersection.traffic_lights:
+                self.streets_to_lights[light.street.street_name] = light
 
 
