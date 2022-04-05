@@ -95,10 +95,3 @@ class Simulation:
 
         return score
 
-
-
-
-
-
-
-
