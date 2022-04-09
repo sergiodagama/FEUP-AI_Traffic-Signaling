@@ -14,7 +14,7 @@ class Intersection:
         self.num_of_lights += 1
 
     def has_street(self,street):
-        next((True for x in self.traffic_lights if x.street == street), False)
+        return next((True for x in self.traffic_lights if x.street == street), False)
 
     def run(self):
         while self.traffic_lights[self.current_light].current_time == 0:

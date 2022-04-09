@@ -76,7 +76,7 @@ def parse_state_file(path,streets):
 
     num_of_intersections = int(lines.pop(0))
     for i in range(num_of_intersections):
-        intersection = Intersection(lines.pop(0))
+        intersection = Intersection(int(lines.pop(0)))
         for j in range(int(lines.pop(0))): #num of streets
             street_name, time = lines.pop(0).split()
             street = next((x for x in streets if x.street_name==street_name),None)

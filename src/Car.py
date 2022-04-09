@@ -8,7 +8,7 @@ class Car:
 
     def enter_next_street(self):
         self.current_street += 1
-        print("\tcurrent street value: "+ str(self.current_street) + " for " + str(self.path_length))
+        # print("\tcurrent street value: "+ str(self.current_street) + " for " + str(self.path_length))
         self.remaining_cost = self.path[self.current_street].time_cost
 
     def current_road(self):

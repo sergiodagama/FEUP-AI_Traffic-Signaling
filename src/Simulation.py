@@ -6,11 +6,12 @@ import random
 
 # attributes are "duration", "n_intersections", "n_streets", "n_cars", "bonus"
 class Simulation:
-    def __init__(self, input_path,state_mode, intersection_path=0):
+    def __init__(self, input_path,state_mode, intersection_path=0,debug=False):
         self.attributes, self.streets, self.cars = parse_input_file(input_path)
         self.duration = int(self.attributes["duration"])
         self.bonus = int(self.attributes["bonus"])
         self.score = 0
+        self.debug = debug
         self.intersections = self.create_state(state_mode, self.streets, intersection_path)
         self.streets_to_lights = {}
         self.init_traffic_lights()
@@ -26,13 +27,13 @@ class Simulation:
                 if(car_position == 1):     # car did not reach end of the road
                     light = self.streets_to_lights[car.current_road().street_name] # next((traffic_light for inter in self.intersections for traffic_light in inter.traffic_lights if traffic_light.street==car.current_road()),None)
                     light.add_car(car)
-                    print("\tAdding element to street: " + str(car.current_road().street_name))
+                    # print("\tAdding element to street: " + str(car.current_road().street_name))
                 elif(car_position == 2):    #car reached end, add to score
                     self.score_evaluation(time)
                     self.cars.remove(car)
             for intersection in self.intersections:     #first update which traffic light is on, then dequeue one form the green light
                 car = intersection.run()
-                print("Running intersection: "+ str(intersection.id))
+                # print("Running intersection: "+ str(intersection.id))
                 if car is not None:
                     car.enter_next_street()
             self.draw()
@@ -90,15 +91,16 @@ class Simulation:
         random.seed()
         intersections = []
         for car in self.cars:
-            for street in car.path:
+            for i in range(car.path_length-1):
+                street = car.path[i]
                 id = street.end_intersection
                 old_intersection = next((x for x in intersections if x.id == id), None)
                 if old_intersection is None:
                     new_intersection = Intersection(id)
-                    new_intersection.insert_traffic_light(TrafficLight(street, random.randint(1, self.attributes["duration"])))
+                    new_intersection.insert_traffic_light(TrafficLight(street, random.randint(1, self.duration)))
                     intersections.append(new_intersection)
                 elif not old_intersection.has_street(street):
-                    old_intersection.insert_traffic_light(TrafficLight(street, random.randint(1, self.attributes["duration"])))
+                    old_intersection.insert_traffic_light(TrafficLight(street, random.randint(1, self.duration)))
         return intersections
 
 
@@ -117,14 +119,17 @@ class Simulation:
         file.write(str(len(self.intersections)))
         file.write("\n")
         for intersection in self.intersections:
-            file.write(intersection.id)
-            # file.write("\n")
+            file.write(str(intersection.id))
+            file.write("\n")
             file.write(str(len(intersection.traffic_lights)))
             file.write("\n")
             for traffic_light in intersection.traffic_lights:
                 file.write(traffic_light.street.street_name + " " + str(traffic_light.time))
                 file.write("\n")
         file.close()
+
+    def output_state(self):
+        return self.intersections
 
 
     def score_evaluation(self, time):
@@ -133,12 +138,13 @@ class Simulation:
 
 
     def draw(self):
-        for car in self.cars:
-            car.draw()
-        for inter in self.intersections:
-            inter.draw()
-        print("Press to Continue")
-        input()
+        if(self.debug):
+            for car in self.cars:
+                car.draw()
+            for inter in self.intersections:
+                inter.draw()
+            print("Press to Continue")
+            input()
 
     def init_traffic_lights(self):
         for intersection in self.intersections:
