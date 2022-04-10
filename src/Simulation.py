@@ -6,8 +6,8 @@ import random
 
 # attributes are "duration", "n_intersections", "n_streets", "n_cars", "bonus"
 class Simulation:
-    def __init__(self, input_path,state_mode, intersection_path=0,debug=False):
-        self.attributes, self.streets, self.cars = parse_input_file(input_path)
+    def __init__(self, city_plan_path,state_mode, intersection_path=0,debug=False):
+        self.attributes, self.streets, self.cars = parse_input_file(city_plan_path)
         self.duration = int(self.attributes["duration"])
         self.bonus = int(self.attributes["bonus"])
         self.score = 0
