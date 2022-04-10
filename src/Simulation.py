@@ -11,6 +11,7 @@ class Simulation:
         self.duration = int(self.attributes["duration"])
         self.bonus = int(self.attributes["bonus"])
         self.score = 0
+        self.reproductive_probability = 0 #value from 0 to 1, for use in GloriousEvolution
         self.debug = debug
         self.intersections = self.create_state(state_mode, self.streets, intersection_path)
         self.streets_to_lights = {}
@@ -88,7 +89,6 @@ class Simulation:
     #       run()
 
     def create_random_state(self):
-        random.seed()
         intersections = []
         for car in self.cars:
             for i in range(car.path_length-1):
