@@ -8,7 +8,8 @@ class TrafficLight:
         self.street = street
         self.current_time = time
         self.green_light = False
-
+    def __str__(self):
+        return str(self.street.street_name) + " " + str(self.time)
     def add_car(self, car):
         self.my_queue.put(car)
 

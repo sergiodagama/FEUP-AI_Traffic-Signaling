@@ -8,6 +8,15 @@ class Intersection:
         self.traffic_lights = []
         self.current_light = 0
         self.num_of_lights = 0
+    
+    def __str__(self):
+        output = ""
+        output += str(self.id)
+        output += ("\n")
+        for i in self.traffic_lights:
+            output += str(i)
+            output += ("\n")
+        return output
 
     def insert_traffic_light(self, traffic_light):
         self.traffic_lights.append(traffic_light)
