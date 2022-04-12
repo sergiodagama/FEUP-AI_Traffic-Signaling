@@ -1,4 +1,5 @@
-from Parser import parse_state_file, parse_input_file
+from copy import deepcopy
+from Parser import parse_state_file
 from Intersection import *
 from Trafficlight import TrafficLight
 import random
@@ -6,8 +7,10 @@ import random
 
 # attributes are "duration", "n_intersections", "n_streets", "n_cars", "bonus"
 class Simulation:
-    def __init__(self, city_plan_path,state_mode, intersection_path=0,debug=False):
-        self.attributes, self.streets, self.cars = parse_input_file(city_plan_path)
+    def __init__(self, city_plan_data,state_mode, intersection_path=0,debug=False):
+        self.attributes = city_plan_data[0]
+        self.streets = city_plan_data[1]
+        self.cars = deepcopy(city_plan_data[2])
         self.duration = int(self.attributes["duration"])
         self.bonus = int(self.attributes["bonus"])
         self.score = 0
@@ -31,7 +34,7 @@ class Simulation:
                     # print("\tAdding element to street: " + str(car.current_road().street_name))
                 elif(car_position == 2):    #car reached end, add to score
                     self.score_evaluation(time)
-                    self.cars.remove(car)
+                    # self.cars.remove(car)
             for intersection in self.intersections:     #first update which traffic light is on, then dequeue one form the green light
                 car = intersection.run()
                 # print("Running intersection: "+ str(intersection.id))
@@ -113,6 +116,8 @@ class Simulation:
             return self.create_random_state()
         if mode == "path":
             return self.create_state_from_path(path,streets)
+        if mode == "array":
+            return path
 
     def output_state_file(self, output_file_path, mode):
         file = open(output_file_path, mode)
@@ -151,3 +156,15 @@ class Simulation:
             for light in intersection.traffic_lights:
                 self.streets_to_lights[light.street.street_name] = light
 
+    def reset(self):
+        self.score = 0
+        self.reproductive_probability = 0
+        
+        self.init_traffic_lights()
+        for inter in self.intersections:
+            inter.reset()
+        for car in self.cars:
+            car.reset()
+        
+    def set_state(self,state):
+        self.intersections = state

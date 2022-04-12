@@ -18,6 +18,7 @@ class Car:
         self.remaining_cost -= 1
         if self.remaining_cost <= 0:
             if self.current_street+1 == self.path_length:
+                self.current_street +=1
                 return 2
             elif self.remaining_cost == 0:
                 return 1
@@ -34,3 +35,7 @@ class Car:
         print("Path_length: ", end="")
         print(self.path_length)
         print("")
+
+    def reset(self):
+        self.current_street = 0
+        self.remaining_cost = 1

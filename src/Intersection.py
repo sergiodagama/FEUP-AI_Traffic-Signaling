@@ -36,3 +36,11 @@ class Intersection:
     def draw(self):
         print("Intersection ID: " + str(self.id), end="")
         print("Current traffic light: " + str(self.traffic_lights[self.current_light].street.street_name))
+
+    def reset(self):
+        self.current_light = 0
+        self.traffic_lights[0].update_time()
+        for light in self.traffic_lights:
+            while light.remove_car() is not None:
+                pass
+    
