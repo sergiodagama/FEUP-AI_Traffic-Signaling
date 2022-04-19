@@ -3,9 +3,9 @@ from functools import total_ordering
 from Simulation import Simulation
 
 class GloriousEvolution:
-    def __init__(self, city_plan_path, population_size = 10, number_of_generations = 10) :
+    def __init__(self, city_plan, population_size = 10, number_of_generations = 10) :
         random.seed()
-        self.city_plan = city_plan_path
+        self.city_plan = city_plan
         self.population_size = population_size
         self.number_of_generations = number_of_generations
         self.current_gen = self.generation_initializer()

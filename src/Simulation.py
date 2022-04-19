@@ -4,10 +4,19 @@ from Intersection import *
 from Trafficlight import TrafficLight
 import random
 
-
-# attributes are "duration", "n_intersections", "n_streets", "n_cars", "bonus"
+# How to use Simulation:
+# parameter city_plan_data - object with data about the city plan to simulate, obtained by running the function "parse_input_file"
+# parameter state_mode - can be:
+#   "random" - creates a random schedule with usefull intersections
+#   "path" - takes a schedule from a file with the same structure as the ones outputed by the program
+#   "array" - takes an array of Intersection objects (actual schedule information, i.e. self.intersection)
+# parameter intersection_data - pass info if state_mode is "array" or "path"
+# parammeter debug - if true, it will print state information and will stop for every second of simulation to wait for user input
+#
+# If you want to reuse simulation for anoter schedule do: <Simulation>.set_state(<new_state>); <Simulation>.reset(); before rerun
+# self.attributes are "duration", "n_intersections", "n_streets", "n_cars", "bonus"
 class Simulation:
-    def __init__(self, city_plan_data,state_mode, intersection_path=0,debug=False):
+    def __init__(self, city_plan_data,state_mode, intersection_data=0,debug=False):
         self.attributes = city_plan_data[0]
         self.streets = city_plan_data[1]
         self.cars = deepcopy(city_plan_data[2])
@@ -16,13 +25,11 @@ class Simulation:
         self.score = 0
         self.reproductive_probability = 0 #value from 0 to 1, for use in GloriousEvolution
         self.debug = debug
-        self.intersections = self.create_state(state_mode, self.streets, intersection_path)
+        self.intersections = self.create_state(state_mode, self.streets, intersection_data)
         self.streets_to_lights = {}
         self.init_traffic_lights()
 
-    def convert_state(self, state):
-        # TODO: converts a state into data to be used in the simulation
-        return 0
+
 
     def run(self):
         for time in range(0, self.duration+1):
@@ -42,54 +49,7 @@ class Simulation:
                     car.enter_next_street()
             self.draw()
 
-    # pre: fill traffic lights with cars
-    # pre: fill intersections with traffic lights
 
-    # MAIN SIMULATION (done for each state given by convert_state)
-    #
-    # loop time:
-    #   loop cars:
-    #       if green light and in queue:
-    #           if first in queue, go to next street
-    #           if not first in queue, do nothing
-    #          if in queue and red light, do nothing
-    #       if red light and in queue:
-    #           always do nothing
-    #       if in street (not in queue):
-    #           advance in the street
-    #
-    #       if at end of street:
-    #           if car at end of path:
-    #               calculate score
-    #           if car not at end of path:
-    #               add car to traffic light queue
-    #
-    #    loop traffic lights:
-    #       if green:
-    #           sub 1 unit time to current traffic light
-    #       if the green traffic light time is 0:
-    #           change this traffic light to red
-    #           change next intersection traffic light to green
-    #
-
-
-    #
-    #   create_state():
-    #       switch for different types of heuristics
-    #       returns a new state
-    #
-    #   create_intersections(state):
-    #       create traffic lights and intersections based on the state given
-    #
-
-
-    #
-    #   loop n_simulations:
-    #       state = create_state()
-    #
-    #       create_intersections(state)
-    #
-    #       run()
 
     def create_random_state(self):
         intersections = []
@@ -168,3 +128,4 @@ class Simulation:
         
     def set_state(self,state):
         self.intersections = state
+        self.reset()
