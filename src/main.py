@@ -7,9 +7,9 @@ from GloriousEvolution import GloriousEvolution
 
 def main():
 
-    # city_plan_data = parse_input_file("docs/city_plans/city_plan_1.txt")
-    city_plan_data = parse_input_file("docs/city_plans/b_by_the_ocean.txt")
-    sim = Simulation(city_plan_data,"path", "docs/schedules/b_by_the_ocean.txt")
+    city_plan_data = parse_input_file("docs/city_plans/city_plan_1.txt")
+    # city_plan_data = parse_input_file("docs/city_plans/b_by_the_ocean.txt")
+    # sim = Simulation(city_plan_data,"path", "docs/schedules/b_by_the_ocean.txt")
     # sim = Simulation(city_plan_data, "random")
 
 
@@ -38,7 +38,7 @@ def main():
 
 
 
-    ev = GloriousEvolution(city_plan_data)
+    ev = GloriousEvolution(city_plan_data,0.2,10,100)
     ev.run()
 
 
