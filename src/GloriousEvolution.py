@@ -74,6 +74,8 @@ class GloriousEvolution:
     def radiation(self):
         for sim in self.current_gen:
             for intersection in sim.intersections:
+                if random.random()<self.radiation_dosage:
+                    intersection.swap_random()
                 for light in intersection.traffic_lights:
                     if random.random() < self.radiation_dosage:
                         if light.time == 0: light.time+=1
@@ -88,9 +90,9 @@ class GloriousEvolution:
             if sim.score > best_score:
                 best_score = sim.score
                 best_sim = sim
-        print("best round score: "+ str(best_score))
+        print("best round score: "+ str(best_score),end='\r')
         print(best_sim)
-        for _ in range(self.number_of_generations):
+        for i in range(self.number_of_generations):
             best_score = -1
             best_sim = None
             self.reproduce()
@@ -99,7 +101,7 @@ class GloriousEvolution:
                 if sim.score > best_score:
                     best_score = sim.score
                     best_sim = sim
-            print("best round score: "+ str(best_score))
-        print(best_sim)
-
+            print("best round score: "+ str(best_score) +". ["+ str(i) + " out of " + str(self.number_of_generations)+ "] generations complete", end='\r')
+            # print(best_sim)
+        print("Success! Best score on final generation was: " + str(best_score))
         

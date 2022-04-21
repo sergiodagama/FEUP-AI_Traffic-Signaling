@@ -8,6 +8,7 @@ from GloriousEvolution import GloriousEvolution
 def main():
 
     city_plan_data = parse_input_file("docs/city_plans/city_plan_1.txt")
+    # city_plan_data = parse_input_file("docs/city_plans/median_map.txt")
     # city_plan_data = parse_input_file("docs/city_plans/b_by_the_ocean.txt")
     # sim = Simulation(city_plan_data,"path", "docs/schedules/b_by_the_ocean.txt")
     # sim = Simulation(city_plan_data, "random")
@@ -22,7 +23,7 @@ def main():
     # sim.reset()
 
     # sim.run()
-    # print("sim2 score: " + str(sim.score))
+    # print("sim score: " + str(sim.score))
     # sim.output_state_file("docs/schedules/result2.txt", 'w')
 
 
@@ -38,7 +39,7 @@ def main():
 
 
 
-    ev = GloriousEvolution(city_plan_data,0.2,10,100)
+    ev = GloriousEvolution(city_plan_data,0.1,100,100)
     ev.run()
 
 
