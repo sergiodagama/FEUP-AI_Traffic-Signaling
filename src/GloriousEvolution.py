@@ -103,5 +103,6 @@ class GloriousEvolution:
                     best_sim = sim
             print("best round score: "+ str(best_score) +". ["+ str(i) + " out of " + str(self.number_of_generations)+ "] generations complete", end='\r')
             # print(best_sim)
+        print("                                                                      ")
         print("Success! Best score on final generation was: " + str(best_score))
         
