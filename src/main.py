@@ -29,7 +29,7 @@ def main():
 
 
     ev = GloriousEvolution(city_plan_data)
-    ev.run_current()
+    ev.run()
 
 
 
