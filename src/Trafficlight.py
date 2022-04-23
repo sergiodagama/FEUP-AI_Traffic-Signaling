@@ -38,5 +38,8 @@ class TrafficLight:
     #         self.swap_light()
     #         self.current_time = self.time
 
+    def set_time(self,time):
+        self.time = time
+
     def update_time(self):
         self.current_time = self.time
