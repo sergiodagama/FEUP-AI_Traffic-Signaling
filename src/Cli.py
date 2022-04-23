@@ -33,7 +33,6 @@ def cli():
         print("1: Basic City")
         print("2: Small City")
         print("3: Big City")
-
         city = get_input()
 
         if city == 0:
@@ -52,7 +51,6 @@ def cli():
             print("1: Hill Climbing")
             print("2: Simulated Annealing")
             print("3: Genetic Algorithm")
-
             algo = get_input()
 
             if algo == 0:
@@ -67,6 +65,8 @@ def cli():
 
             elif algo == 2:
                 number_of_coolings = 4
+                tn = 0
+
                 # simulated annealing
                 while True:
                     print("Choose the temperature cooling schedule: ")
@@ -75,30 +75,33 @@ def cli():
                     print("2: Logarithmic multiplicative cooling")
                     print("3: Linear multiplicative cooling")
                     print("4: Quadratic multiplicative cooling")
-
+                    print("5: Linear additive cooling")
+                    print("6: Quadratic additive cooling")
                     cooling = get_input()
 
                     if cooling == 0:
                         break
 
                     print("Choose the initial temperature: ")
-
                     t0 = get_input()
 
                     print("Choose the number of the algorithm iterations: ")
-
                     iterations = get_input()
 
-                    if 0 > cooling > number_of_coolings or iterations <= 0 or t0 <= 0:
+                    if cooling > 4:
+                        print("Choose the final temperature: ")
+                        tn = get_input()
+
+                    if 0 > cooling > number_of_coolings or iterations <= 0 or t0 <= 0 or tn < 0:
                         print("You have chosen invalid options!\nPlease try again")
                         continue
 
                     sim_annealing = SimulatedAnnealing(simulation, cooling)
-                    best_state, best_score = sim_annealing.run(iterations, t0, cooling)
+                    best_state, best_score = sim_annealing.run(iterations, t0, cooling, tn)
 
                     print("Best State: ", end="")
                     simulation.print_state(best_state)
-                    print("Best State Score: ", best_score)
+                    print("\nBest State Score: ", best_score)
                     break
 
             elif algo == 3:
