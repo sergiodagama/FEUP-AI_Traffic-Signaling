@@ -4,6 +4,7 @@ from PIL import Image
 from random import randint, sample
 from turtle import Turtle, Screen
 from turtle import Turtle
+import time
 from unicodedata import name
 
 
@@ -160,8 +161,6 @@ def main(list_args):
     file_name = parse(file_name)
     print("Generating file: "+file_name+".txt")
 
-    sc.getcanvas().postscript(file="city_plans_map/" + file_name+".eps",colormode="color")
-
     file = open("city_plans/" + file_name + ".txt", 'x')
     file.write(str(sim_time)+" "+str(num_of_nodes)+" "+str(len(streets))+" "+str(num_of_cars)+" "+str(bonus)+"\n")
     for street in streets:
@@ -172,6 +171,10 @@ def main(list_args):
             file.write(" "+ str(street))
         file.write("\n")
     file.close()
+
+    sc.getcanvas().postscript(file="city_plans_map/" + file_name+".eps",colormode="color")
+    time.sleep(1)
+
     img = Image.open("city_plans_map/" + file_name+".eps") 
     img.save("city_plans_map/" + file_name+ ".png", 'png')
 
