@@ -1,4 +1,5 @@
 from copy import deepcopy
+import random
 import Trafficlight
 
 class Intersection:
@@ -31,6 +32,13 @@ class Intersection:
 
     def has_street(self,street):
         return next((True for x in self.traffic_lights if x.street == street), False)
+
+    def swap_random(self):
+        if self.num_of_lights < 2: return
+        first, second = random.sample(range(0,self.num_of_lights),2)
+        temp = self.traffic_lights[first]
+        self.traffic_lights[first] = self.traffic_lights[second]
+        self.traffic_lights[second] = temp
 
     def run(self):
         loops = 0

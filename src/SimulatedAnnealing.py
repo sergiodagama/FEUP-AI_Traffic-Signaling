@@ -86,7 +86,10 @@ class SimulatedAnnealing:
                         light.time = random.randint(1, self.simulation.duration)
 
     def accept_with_prob(self, values_diff, t):
-        return random.random() > math.exp(values_diff / t)
+        try:
+            return random.random() < math.exp(values_diff / t)
+        except OverflowError:
+            return False
 
     def value(self, state):
         self.simulation.set_state(state)
@@ -107,8 +110,9 @@ class SimulatedAnnealing:
             print_state(current_state)
             print_state(next_state)
 
-            if self.value(current_state) > self.value(best):
-                best = current_state
+            if self.value(best) < self.value(current_state):
+                print("BEST")
+                best = self.simulation.output_state_copy()
 
             values_diff = self.value(next_state) - self.value(current_state)
 
@@ -118,7 +122,7 @@ class SimulatedAnnealing:
             print("acceptance prob: ", self.accept_with_prob(values_diff, t))
             print("values diff: ", values_diff)
 
-            if values_diff > 0:
+            if values_diff >= 0:
                 print("inside values diff")
                 current_state = next_state
             else:
@@ -128,7 +132,8 @@ class SimulatedAnnealing:
 
             self.simulation.set_state(current_state)
 
-        print("Best State: ", print_state(best))
+        print("Best State: ", end="")
+        print_state(best)
         print("Best State Score: ", self.value(best))
 
         return best

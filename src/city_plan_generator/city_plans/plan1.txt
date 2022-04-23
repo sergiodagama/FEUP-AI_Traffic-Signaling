@@ -1,0 +1,25 @@
+10 5 19 5 1000
+3 0 1nt_Street 1
+1 0 2nt_Street 4
+2 0 3nt_Street 6
+4 0 4nt_Street 5
+3 1 5nt_Street 5
+2 1 6nt_Street 4
+0 1 7nt_Street 6
+4 1 8nt_Street 1
+3 2 9nt_Street 3
+1 2 10nt_Street 2
+4 2 11nt_Street 5
+0 2 12nt_Street 2
+2 3 13nt_Street 6
+1 3 14nt_Street 1
+4 3 15nt_Street 4
+0 3 16nt_Street 6
+2 4 17nt_Street 2
+3 4 18nt_Street 1
+1 4 19nt_Street 6
+5 8nt_Street 14nt_Street 1nt_Street 16nt_Street 5nt_Street
+6 13nt_Street 18nt_Street 11nt_Street 13nt_Street 1nt_Street 7nt_Street
+6 3nt_Street 7nt_Street 19nt_Street 15nt_Street 1nt_Street 16nt_Street
+6 8nt_Street 10nt_Street 13nt_Street 18nt_Street 15nt_Street 1nt_Street
+5 19nt_Street 15nt_Street 9nt_Street 13nt_Street 18nt_Street
