@@ -60,4 +60,9 @@ class Intersection:
         for light in self.traffic_lights:
             while light.remove_car() is not None:
                 pass
+    def get_traffic_lights(self):
+        return self.traffic_lights
+    
+    def set_traffic_lights(self,new_traffic_lights):
+        self.traffic_lights = new_traffic_lights
     
