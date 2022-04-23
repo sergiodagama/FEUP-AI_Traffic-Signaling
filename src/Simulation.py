@@ -132,3 +132,15 @@ class Simulation:
     def set_state(self,state):
         self.intersections = state
         self.reset()
+
+    def print_state(self, state):
+        print("(", end="")
+        for i in range(len(state)):
+            print("[", end="")
+            for j in range(len(state[i].traffic_lights)):
+                print(state[i].traffic_lights[j].time, end="")
+                if j != len(state[i].traffic_lights) - 1:
+                    print(" ", end="")
+            if i != len(state) - 1:
+                print("] ", end="")
+        print("])", end="")
