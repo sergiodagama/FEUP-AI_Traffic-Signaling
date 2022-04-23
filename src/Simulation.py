@@ -95,6 +95,9 @@ class Simulation:
 
     def output_state(self):
         return self.intersections
+    
+    def output_state_copy(self):
+        return [inter.replicate() for inter in self.intersections]
 
 
     def score_evaluation(self, time):

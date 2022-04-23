@@ -78,7 +78,7 @@ def cli():
 
                     iterations = get_input()
 
-                    if cooling < 0 | iterations < 0 | t0 < 0:
+                    if cooling < 0 | iterations <= 0 | t0 <= 0:
                         print("You have chosen invalid options!\nPlease try again")
                         continue
 

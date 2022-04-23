@@ -5,6 +5,19 @@ import math
 """ Different types of temperature schedules """
 
 
+def print_state(state):
+    print("(", end="")
+    for i in range(len(state)):
+        print("[", end="")
+        for j in range(len(state[i].traffic_lights)):
+            print(state[i].traffic_lights[j].time, end="")
+            if j != len(state[i].traffic_lights)-1:
+                print(" ", end="")
+        if i != len(state)-1:
+            print("] ", end="")
+    print("])")
+
+
 class MultMonotonicCooling:
     def get_temperature(self, t0: float, alpha: float, i: int) -> float:
         """Override"""
@@ -57,7 +70,7 @@ class SimulatedAnnealing:
         if t_schedule_type == 1:
             return ExponentialMult.get_temperature(self, t0, alpha, i)
         elif t_schedule_type == 2:
-            return LogarithmicMult.get_temperature(self, t0, alpha, i)
+            return LogarithmicMult.get_temperature(self, t0, 2, i)
         elif t_schedule_type == 3:
             return LinearMult.get_temperature(self, t0, alpha, i)
         elif t_schedule_type == 4:
@@ -73,7 +86,7 @@ class SimulatedAnnealing:
                         light.time = random.randint(1, self.simulation.duration)
 
     def accept_with_prob(self, values_diff, t):
-        return random.random() > math.e ** (values_diff / t)
+        return random.random() > math.exp(values_diff / t)
 
     def value(self, state):
         self.simulation.set_state(state)
@@ -81,16 +94,43 @@ class SimulatedAnnealing:
         return self.simulation.score
 
     def run(self, n_iterations, t0, schedule_type):
-        current_state = self.simulation.output_state_copy()
+        best = self.simulation.output_state_copy()
 
         for i in range(n_iterations):
             t = self.temp_schedule(schedule_type, t0, i)
 
-            self.random_neighbour(0.5, 0.5)
+            current_state = self.simulation.output_state_copy()
+            self.random_neighbour(0.1, 0.1)
             next_state = self.simulation.output_state_copy()
-            values_diff = self.value(current_state) - self.value(next_state)
 
-            if values_diff > 0 or self.accept_with_prob(values_diff, t):
+            print("\n\n")
+            print_state(current_state)
+            print_state(next_state)
+
+            if self.value(current_state) > self.value(best):
+                best = current_state
+
+            values_diff = self.value(next_state) - self.value(current_state)
+
+            print("current value: ", self.value(current_state))
+            print("next value: ", self.value(next_state))
+            print("temperature: ", t)
+            print("acceptance prob: ", self.accept_with_prob(values_diff, t))
+            print("values diff: ", values_diff)
+
+            if values_diff > 0:
+                print("inside values diff")
                 current_state = next_state
             else:
-                self.simulation.set_state(current_state)
+                if self.accept_with_prob(values_diff, t):
+                    print("inside accept with prob")
+                    current_state = next_state
+
+            self.simulation.set_state(current_state)
+
+        print("Best State: ", print_state(best))
+        print("Best State Score: ", self.value(best))
+
+        return best
+
+
