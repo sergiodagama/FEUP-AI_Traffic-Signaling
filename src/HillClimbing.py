@@ -28,7 +28,7 @@ class HillClimbing:
         newSol[id1].set_traffic_lights(self.swapIntersections(currSol[id1].get_traffic_lights()))
         return newSol
 
-    def run(self,simulation : Simulation):
+    def run(self, simulation: Simulation):
         currSol = simulation.output_state()
         simulation.run()
         currScore = simulation.score
@@ -57,12 +57,4 @@ class HillClimbing:
                 print("Found a better solution with a score of ", currScore)
             else:
                 print(neighbourScore)
-        return (currSol, currScore)
-hill_climbing = HillClimbing()
-city_plan_data = parse_input_file("docs/city_plans/median_map.txt")
-sim = Simulation(city_plan_data,"random")
-hill_climbing = HillClimbing()
-(bestSol, bestScore) = hill_climbing.run(sim)
-print("End of simulation")
-print(" ")
-print("With a score of ", bestScore)
+        return currSol, currScore

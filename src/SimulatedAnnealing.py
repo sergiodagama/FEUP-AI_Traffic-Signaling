@@ -1,21 +1,7 @@
 import random
 import math
 
-
 """ Different types of temperature schedules """
-
-
-def print_state(state):
-    print("(", end="")
-    for i in range(len(state)):
-        print("[", end="")
-        for j in range(len(state[i].traffic_lights)):
-            print(state[i].traffic_lights[j].time, end="")
-            if j != len(state[i].traffic_lights)-1:
-                print(" ", end="")
-        if i != len(state)-1:
-            print("] ", end="")
-    print("])")
 
 
 class MultMonotonicCooling:
@@ -106,36 +92,30 @@ class SimulatedAnnealing:
             self.random_neighbour(0.1, 0.1)
             next_state = self.simulation.output_state_copy()
 
-            print("\n\n")
-            print_state(current_state)
-            print_state(next_state)
-
             if self.value(best) < self.value(current_state):
-                print("BEST")
                 best = self.simulation.output_state_copy()
 
             values_diff = self.value(next_state) - self.value(current_state)
 
+            print("iteration: [" + str(i) + "] 🌡️ " + str(t) + " acceptance prob: " +
+                str(self.accept_with_prob(values_diff, t)) +
+                " curr state: " + self.simulation.print_state(current_state) +
+                " next state: " + self.simulation.print_state(next_state), end='\r')
+
+            '''
             print("current value: ", self.value(current_state))
             print("next value: ", self.value(next_state))
             print("temperature: ", t)
             print("acceptance prob: ", self.accept_with_prob(values_diff, t))
             print("values diff: ", values_diff)
+            '''
 
             if values_diff >= 0:
-                print("inside values diff")
                 current_state = next_state
             else:
                 if self.accept_with_prob(values_diff, t):
-                    print("inside accept with prob")
                     current_state = next_state
 
             self.simulation.set_state(current_state)
 
-        print("Best State: ", end="")
-        print_state(best)
-        print("Best State Score: ", self.value(best))
-
-        return best
-
-
+        return best, self.value(best)
