@@ -1,14 +1,13 @@
 import gc
 from turtle import Screen, Turtle
 import turtle
-from Car import Car
-from Street import Street
+
 
 class Animation:
     def __init__(self, coords):
-        self.nodes,self.streets = coords
+        self.nodes, self.streets = coords
         self.screen = Screen()
-        self.screen.setworldcoordinates(-20,-20,1020,1020)
+        self.screen.setworldcoordinates(-20, -20, 1020, 1020)
         self.screen.bgcolor("#D0D0D0")
         self.screen.tracer(0, 0)
         self.turtle = Turtle()
@@ -16,6 +15,7 @@ class Animation:
         self.turtle.color("#0000FF")
         self.turtle.hideturtle()
         self.turtle.shape('turtle')
+        turtle.TurtleScreen._RUNNING=True
     
     def draw_map(self):
         rootwindow = self.screen.getcanvas().winfo_toplevel()
@@ -43,8 +43,8 @@ class Animation:
 
         for node in self.nodes:
             self.turtle.up()
-            self.turtle.setpos(node[0],node[1])
-            self.turtle.dot(7,"#F00000")
+            self.turtle.setpos(node[0], node[1])
+            self.turtle.dot(7, "#F00000")
     
     def update(self):
         self.screen.update()
