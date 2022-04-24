@@ -85,11 +85,12 @@ def cli():
                 print("With a score of ", bestScore)
 
             elif algo == 2:
-                number_of_coolings = 4
-                tn = 0
+                number_of_coolings = 6
 
                 # simulated annealing
                 while True:
+                    tn = 1
+
                     print("Choose the temperature cooling schedule: ")
                     print("0: Go Back")
                     print("1: Exponential multiplicative cooling")
@@ -117,8 +118,11 @@ def cli():
                         print("You have chosen invalid options!\nPlease try again")
                         continue
 
-                    sim_annealing = SimulatedAnnealing(simulation, cooling)
-                    best_state, best_score = sim_annealing.run(iterations, t0, cooling, tn)
+                    print("Do you want to apply Non-Monotonic Adaptive Cooling to the previous schedule (y/n): ")
+                    apply_non_mono = input() in "yY"
+
+                    sim_annealing = SimulatedAnnealing(simulation)
+                    best_state, best_score = sim_annealing.run(iterations, t0, cooling, tn, apply_non_mono)
 
                     print("Best State: ", end="")
                     simulation.print_state(best_state)
