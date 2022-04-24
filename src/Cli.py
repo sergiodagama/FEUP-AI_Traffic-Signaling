@@ -12,6 +12,13 @@ def get_input():
     else:
         return -1
 
+def get_input_float():
+    num = input("-> ")
+    try:
+        return float(num)
+    except:
+        return -1
+
 
 def get_city_string(city):
     if city == 1:
@@ -153,9 +160,12 @@ def cli():
                     number_of_generations = get_input()
 
                     print("Choose the radiation dosage: ")
-                    radiation_dosage = get_input()
+                    radiation_dosage = get_input_float()
 
-                    if 0 > radiation_dosage > 1 or population_size <= 0 or number_of_generations <= 0:
+                    if ( radiation_dosage < 0.0 or
+                         radiation_dosage > 1.0 or 
+                         population_size <= 0 or 
+                         number_of_generations <= 0):
                         continue
 
                     ev = GloriousEvolution(city_plan_data, radiation_dosage, population_size, number_of_generations)
@@ -194,6 +204,7 @@ def cli():
                 path=input("Chose a name for the file: ")
                 path = path.split()[0].split(".")[0]
                 sim = Simulation(city_plan_data, "array", best_state)
+                sim.set_state(best_state)
                 try:
                     sim.output_state_file("docs/schedules/"+path+".txt",'w')
                 except:

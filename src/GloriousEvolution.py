@@ -1,4 +1,5 @@
 import random
+import time
 import sys
 from Simulation import Simulation
 
@@ -73,7 +74,7 @@ class GloriousEvolution:
                         continue
                     new_state[j].traffic_lights[r] = genetic_code.replicate()
             self.current_gen[i].set_state(new_state)
-        # self.radiation()
+        self.radiation()
 
     def radiation(self):
         for sim in self.current_gen:
@@ -87,6 +88,7 @@ class GloriousEvolution:
                         else: light.time += random.sample([-1,1],1)[0]
 
     def run(self):
+        start_time = time.time()
         best_score = -1
         best_gen_score = -1
         self.run_current_gen()
@@ -98,25 +100,24 @@ class GloriousEvolution:
                     self.best_simulation = sim.output_state_copy()
         loading_bar_size = 50
         load = loading_bar_size//self.number_of_generations
-        print("best overall score: " + str(best_score)+", best round score: "+ str(best_gen_score)+ 
+        print("best overall score: " + str(best_score)+", best round score: "+ str(best_gen_score)+"\ttime left: "+str((time.time()-start_time)*(self.number_of_generations-1))+ 
                 "\n["+ str(1) + " out of " + str(self.number_of_generations)+ "] generations complete"+
                 "\nLoading[{}{}]".format('#'*load,' '*(loading_bar_size-load)))
         for i in range(1,self.number_of_generations):
             self.reproduce()
-            # self.current_gen[0].set_state(self.best_simulation)
             best_gen_score = -1
             self.run_current_gen()
             for sim in self.current_gen:
                 if sim.score > best_gen_score:
                     best_gen_score = sim.score
                     if best_gen_score > best_score:
-                        best_score = best_gen_score
+                        best_score = sim.score
                         self.best_simulation = sim.output_state_copy()
             sys.stdout.write("\x1b[1A\x1b[2K")
             sys.stdout.write("\x1b[1A\x1b[2K")
             sys.stdout.write("\x1b[1A\x1b[2K")
             load = ((i+1)*loading_bar_size)//self.number_of_generations
-            print("best overall score: " + str(best_score)+", best round score: "+ str(best_gen_score)+ 
+            print("best overall score: " + str(best_score)+", best round score: "+ str(best_gen_score)+"\ttime left: "+str((time.time()-start_time)*(self.number_of_generations-i))+ 
                 "\n["+ str(i+1) + " out of " + str(self.number_of_generations)+ "] generations complete"+
                 "\nLoading[{}{}]".format('#'*load,' '*(loading_bar_size-load)))
         sys.stdout.write("\x1b[1A\x1b[2K")
@@ -124,5 +125,7 @@ class GloriousEvolution:
         print("["+ str(self.number_of_generations) + " out of " + str(self.number_of_generations)+ "] generations complete\nLoading[{}]".format('#'*loading_bar_size))
         print("                                                                      ")
         print("Success! Best score on final generation was: " + str(best_score))
+        sim = Simulation(self.city_plan, "array", self.best_simulation)
+        sim.print_state(self.best_simulation)
         return self.best_simulation
         

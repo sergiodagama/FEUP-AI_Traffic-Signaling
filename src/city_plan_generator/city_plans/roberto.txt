@@ -1,0 +1,196 @@
+50 50 145 50 1000
+29 0 1nt_Street 4
+12 0 2nt_Street 3
+23 1 3nt_Street 2
+27 1 4nt_Street 1
+40 2 5nt_Street 5
+10 2 6nt_Street 2
+36 3 7nt_Street 2
+35 3 8nt_Street 1
+7 3 9nt_Street 5
+13 3 10nt_Street 1
+22 4 11nt_Street 4
+32 4 12nt_Street 3
+46 4 13nt_Street 4
+42 5 14nt_Street 4
+30 5 15nt_Street 1
+41 5 16nt_Street 4
+34 5 17nt_Street 1
+17 6 18nt_Street 2
+48 6 19nt_Street 3
+3 7 20nt_Street 2
+13 7 21nt_Street 2
+35 7 22nt_Street 4
+19 7 23nt_Street 4
+31 8 24nt_Street 5
+18 8 25nt_Street 2
+10 8 26nt_Street 3
+21 9 27nt_Street 5
+24 9 28nt_Street 3
+23 9 29nt_Street 3
+15 9 30nt_Street 3
+18 10 31nt_Street 5
+2 10 32nt_Street 5
+13 10 33nt_Street 2
+39 11 34nt_Street 2
+26 11 35nt_Street 1
+19 11 36nt_Street 2
+37 11 37nt_Street 4
+43 12 38nt_Street 3
+49 12 39nt_Street 1
+7 13 40nt_Street 2
+10 13 41nt_Street 4
+24 14 42nt_Street 2
+38 14 43nt_Street 1
+21 15 44nt_Street 2
+9 15 45nt_Street 4
+24 15 46nt_Street 5
+14 15 47nt_Street 3
+47 16 48nt_Street 3
+49 16 49nt_Street 3
+43 16 50nt_Street 5
+12 16 51nt_Street 4
+22 17 52nt_Street 5
+6 17 53nt_Street 4
+32 17 54nt_Street 2
+14 17 55nt_Street 4
+10 18 56nt_Street 2
+8 18 57nt_Street 3
+13 18 58nt_Street 2
+39 19 59nt_Street 4
+37 19 60nt_Street 4
+7 19 61nt_Street 4
+49 20 62nt_Street 4
+28 20 63nt_Street 4
+9 21 64nt_Street 4
+15 21 65nt_Street 4
+24 21 66nt_Street 2
+4 22 67nt_Street 5
+32 22 68nt_Street 5
+17 22 69nt_Street 2
+1 23 70nt_Street 4
+46 23 71nt_Street 5
+38 24 72nt_Street 1
+21 24 73nt_Street 5
+14 24 74nt_Street 1
+9 24 75nt_Street 1
+30 25 76nt_Street 4
+41 25 77nt_Street 4
+6 25 78nt_Street 1
+37 26 79nt_Street 1
+19 26 80nt_Street 1
+45 27 81nt_Street 2
+47 27 82nt_Street 4
+1 27 83nt_Street 4
+20 28 84nt_Street 3
+12 28 85nt_Street 5
+43 29 86nt_Street 4
+0 29 87nt_Street 1
+45 29 88nt_Street 4
+12 29 89nt_Street 1
+25 30 90nt_Street 4
+41 30 91nt_Street 4
+5 30 92nt_Street 2
+40 31 93nt_Street 2
+8 31 94nt_Street 3
+22 32 95nt_Street 2
+38 32 96nt_Street 1
+47 33 97nt_Street 4
+49 33 98nt_Street 3
+16 33 99nt_Street 4
+20 33 100nt_Street 1
+44 34 101nt_Street 4
+31 34 102nt_Street 5
+3 35 103nt_Street 5
+7 35 104nt_Street 2
+36 35 105nt_Street 5
+3 36 106nt_Street 5
+35 36 107nt_Street 3
+7 36 108nt_Street 1
+26 37 109nt_Street 2
+19 37 110nt_Street 2
+24 38 111nt_Street 2
+32 38 112nt_Street 4
+14 38 113nt_Street 2
+46 38 114nt_Street 3
+19 39 115nt_Street 4
+35 39 116nt_Street 1
+37 39 117nt_Street 5
+26 39 118nt_Street 4
+2 40 119nt_Street 1
+31 40 120nt_Street 5
+10 40 121nt_Street 2
+34 40 122nt_Street 1
+30 41 123nt_Street 4
+34 41 124nt_Street 5
+5 41 125nt_Street 3
+5 42 126nt_Street 1
+30 42 127nt_Street 5
+29 43 128nt_Street 2
+16 43 129nt_Street 4
+34 44 130nt_Street 4
+31 44 131nt_Street 2
+27 45 132nt_Street 4
+47 45 133nt_Street 2
+23 46 134nt_Street 4
+1 46 135nt_Street 4
+16 47 136nt_Street 4
+45 47 137nt_Street 4
+27 47 138nt_Street 2
+14 48 139nt_Street 2
+6 48 140nt_Street 2
+24 48 141nt_Street 5
+15 48 142nt_Street 3
+20 49 143nt_Street 1
+16 49 144nt_Street 3
+12 49 145nt_Street 1
+5 24nt_Street 57nt_Street 25nt_Street 57nt_Street 25nt_Street
+5 134nt_Street 13nt_Street 67nt_Street 52nt_Street 18nt_Street
+5 88nt_Street 1nt_Street 87nt_Street 128nt_Street 38nt_Street
+9 57nt_Street 25nt_Street 57nt_Street 25nt_Street 57nt_Street 31nt_Street 56nt_Street 31nt_Street 6nt_Street
+8 19nt_Street 53nt_Street 69nt_Street 11nt_Street 67nt_Street 52nt_Street 69nt_Street 52nt_Street
+8 18nt_Street 53nt_Street 18nt_Street 78nt_Street 90nt_Street 15nt_Street 126nt_Street 14nt_Street
+5 129nt_Street 86nt_Street 128nt_Street 86nt_Street 1nt_Street
+9 26nt_Street 94nt_Street 120nt_Street 5nt_Street 32nt_Street 121nt_Street 93nt_Street 131nt_Street 101nt_Street
+7 112nt_Street 72nt_Street 141nt_Street 19nt_Street 140nt_Street 19nt_Street 78nt_Street
+8 2nt_Street 87nt_Street 128nt_Street 86nt_Street 128nt_Street 86nt_Street 1nt_Street 87nt_Street
+5 92nt_Street 15nt_Street 125nt_Street 16nt_Street 92nt_Street
+7 134nt_Street 13nt_Street 67nt_Street 52nt_Street 18nt_Street 53nt_Street 69nt_Street
+10 25nt_Street 57nt_Street 25nt_Street 57nt_Street 31nt_Street 121nt_Street 5nt_Street 32nt_Street 6nt_Street 32nt_Street
+7 9nt_Street 103nt_Street 107nt_Street 7nt_Street 103nt_Street 116nt_Street 59nt_Street
+10 120nt_Street 93nt_Street 131nt_Street 101nt_Street 130nt_Street 101nt_Street 122nt_Street 5nt_Street 119nt_Street 93nt_Street
+7 3nt_Street 135nt_Street 114nt_Street 72nt_Street 141nt_Street 19nt_Street 78nt_Street
+7 22nt_Street 9nt_Street 20nt_Street 61nt_Street 23nt_Street 108nt_Street 105nt_Street
+9 90nt_Street 127nt_Street 14nt_Street 125nt_Street 91nt_Street 15nt_Street 125nt_Street 16nt_Street 125nt_Street
+9 135nt_Street 13nt_Street 67nt_Street 11nt_Street 67nt_Street 52nt_Street 18nt_Street 78nt_Street 90nt_Street
+6 41nt_Street 33nt_Street 56nt_Street 25nt_Street 94nt_Street 24nt_Street
+6 125nt_Street 16nt_Street 126nt_Street 14nt_Street 92nt_Street 127nt_Street
+4 87nt_Street 128nt_Street 50nt_Street 99nt_Street
+5 88nt_Street 1nt_Street 87nt_Street 128nt_Street 50nt_Street
+7 127nt_Street 14nt_Street 92nt_Street 127nt_Street 14nt_Street 126nt_Street 14nt_Street
+10 53nt_Street 69nt_Street 52nt_Street 18nt_Street 53nt_Street 69nt_Street 52nt_Street 69nt_Street 11nt_Street 67nt_Street
+10 124nt_Street 77nt_Street 90nt_Street 15nt_Street 92nt_Street 15nt_Street 92nt_Street 76nt_Street 90nt_Street 127nt_Street
+7 125nt_Street 77nt_Street 90nt_Street 127nt_Street 14nt_Street 126nt_Street 14nt_Street
+5 142nt_Street 19nt_Street 140nt_Street 19nt_Street 140nt_Street
+4 56nt_Street 31nt_Street 56nt_Street 31nt_Street
+7 95nt_Street 68nt_Street 52nt_Street 18nt_Street 78nt_Street 90nt_Street 127nt_Street
+6 6nt_Street 119nt_Street 5nt_Street 119nt_Street 93nt_Street 120nt_Street
+7 87nt_Street 1nt_Street 87nt_Street 1nt_Street 87nt_Street 1nt_Street 87nt_Street
+4 75nt_Street 111nt_Street 43nt_Street 47nt_Street
+10 75nt_Street 46nt_Street 30nt_Street 75nt_Street 66nt_Street 44nt_Street 30nt_Street 45nt_Street 142nt_Street 19nt_Street
+4 63nt_Street 84nt_Street 63nt_Street 84nt_Street
+4 105nt_Street 22nt_Street 104nt_Street 107nt_Street
+6 65nt_Street 44nt_Street 142nt_Street 19nt_Street 140nt_Street 19nt_Street
+7 137nt_Street 48nt_Street 144nt_Street 49nt_Street 144nt_Street 62nt_Street 143nt_Street
+8 101nt_Street 122nt_Street 93nt_Street 120nt_Street 93nt_Street 131nt_Street 101nt_Street 124nt_Street
+6 111nt_Street 43nt_Street 74nt_Street 46nt_Street 65nt_Street 73nt_Street
+10 77nt_Street 90nt_Street 123nt_Street 16nt_Street 126nt_Street 14nt_Street 125nt_Street 91nt_Street 76nt_Street 90nt_Street
+10 125nt_Street 16nt_Street 92nt_Street 76nt_Street 90nt_Street 15nt_Street 92nt_Street 15nt_Street 126nt_Street 14nt_Street
+10 119nt_Street 5nt_Street 119nt_Street 93nt_Street 102nt_Street 122nt_Street 5nt_Street 32nt_Street 6nt_Street 119nt_Street
+7 47nt_Street 65nt_Street 27nt_Street 45nt_Street 142nt_Street 19nt_Street 140nt_Street
+8 82nt_Street 4nt_Street 83nt_Street 138nt_Street 133nt_Street 81nt_Street 138nt_Street 82nt_Street
+9 76nt_Street 90nt_Street 123nt_Street 16nt_Street 126nt_Street 14nt_Street 125nt_Street 77nt_Street 90nt_Street
+5 19nt_Street 53nt_Street 69nt_Street 52nt_Street 69nt_Street
+4 105nt_Street 22nt_Street 104nt_Street 107nt_Street
+9 90nt_Street 127nt_Street 14nt_Street 126nt_Street 14nt_Street 126nt_Street 14nt_Street 126nt_Street 14nt_Street
+10 22nt_Street 108nt_Street 7nt_Street 106nt_Street 105nt_Street 107nt_Street 105nt_Street 107nt_Street 105nt_Street 8nt_Street

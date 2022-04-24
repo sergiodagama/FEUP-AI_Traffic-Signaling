@@ -1,0 +1,370 @@
+110
+281
+3
+831nt_Street 9
+832nt_Street 28
+833nt_Street 35
+251
+1
+754nt_Street 19
+248
+3
+743nt_Street 41
+741nt_Street 33
+742nt_Street 9
+319
+1
+936nt_Street 64
+356
+1
+1051nt_Street 25
+264
+1
+789nt_Street 80
+315
+1
+924nt_Street 84
+257
+1
+769nt_Street 78
+188
+2
+557nt_Street 45
+555nt_Street 2
+332
+1
+977nt_Street 98
+355
+3
+1047nt_Street 24
+1046nt_Street 84
+1048nt_Street 75
+363
+2
+1072nt_Street 9
+1070nt_Street 93
+148
+2
+434nt_Street 8
+431nt_Street 85
+72
+2
+215nt_Street 32
+214nt_Street 57
+100
+1
+295nt_Street 45
+402
+2
+1184nt_Street 1
+1183nt_Street 91
+459
+1
+1347nt_Street 15
+91
+1
+270nt_Street 46
+328
+2
+966nt_Street 95
+968nt_Street 84
+327
+2
+963nt_Street 76
+964nt_Street 45
+472
+3
+1388nt_Street 88
+1391nt_Street 55
+1389nt_Street 51
+32
+1
+94nt_Street 8
+338
+1
+996nt_Street 53
+479
+1
+1410nt_Street 69
+292
+2
+859nt_Street 10
+860nt_Street 10
+423
+3
+1250nt_Street 78
+1249nt_Street 27
+1251nt_Street 34
+120
+2
+350nt_Street 22
+351nt_Street 7
+210
+1
+620nt_Street 71
+450
+2
+1323nt_Street 27
+1322nt_Street 43
+208
+2
+614nt_Street 18
+615nt_Street 32
+428
+2
+1264nt_Street 20
+1262nt_Street 60
+48
+1
+147nt_Street 73
+322
+2
+947nt_Street 18
+946nt_Street 5
+351
+1
+1037nt_Street 52
+400
+1
+1179nt_Street 33
+161
+1
+469nt_Street 47
+65
+1
+197nt_Street 11
+293
+3
+861nt_Street 12
+862nt_Street 28
+863nt_Street 6
+243
+1
+724nt_Street 56
+365
+1
+1076nt_Street 16
+409
+1
+1207nt_Street 63
+13
+1
+42nt_Street 96
+486
+1
+1433nt_Street 17
+455
+1
+1339nt_Street 65
+372
+2
+1094nt_Street 25
+1095nt_Street 30
+422
+1
+1247nt_Street 58
+140
+1
+409nt_Street 29
+45
+2
+140nt_Street 65
+139nt_Street 36
+117
+1
+341nt_Street 25
+215
+1
+635nt_Street 41
+113
+2
+325nt_Street 43
+327nt_Street 35
+268
+1
+798nt_Street 65
+403
+1
+1188nt_Street 21
+289
+1
+851nt_Street 57
+69
+1
+207nt_Street 73
+223
+2
+659nt_Street 10
+660nt_Street 33
+159
+1
+463nt_Street 81
+484
+1
+1427nt_Street 48
+498
+1
+1465nt_Street 81
+375
+3
+1106nt_Street 60
+1105nt_Street 96
+1107nt_Street 83
+384
+1
+1133nt_Street 13
+323
+1
+950nt_Street 43
+68
+2
+204nt_Street 44
+206nt_Street 76
+143
+1
+418nt_Street 19
+184
+1
+543nt_Street 31
+360
+2
+1063nt_Street 58
+1060nt_Street 46
+1
+1
+5nt_Street 76
+43
+1
+133nt_Street 86
+104
+1
+304nt_Street 65
+142
+1
+415nt_Street 63
+350
+1
+1034nt_Street 15
+154
+1
+449nt_Street 91
+124
+1
+363nt_Street 80
+395
+1
+1162nt_Street 65
+242
+1
+722nt_Street 10
+230
+1
+682nt_Street 95
+122
+1
+356nt_Street 18
+296
+1
+870nt_Street 70
+364
+1
+1073nt_Street 48
+490
+1
+1445nt_Street 16
+334
+1
+985nt_Street 66
+321
+2
+943nt_Street 1
+941nt_Street 12
+60
+1
+182nt_Street 69
+249
+1
+745nt_Street 59
+236
+1
+703nt_Street 18
+108
+1
+313nt_Street 71
+96
+1
+282nt_Street 97
+151
+2
+441nt_Street 36
+440nt_Street 4
+371
+1
+1092nt_Street 51
+408
+1
+1204nt_Street 11
+141
+1
+410nt_Street 73
+67
+1
+201nt_Street 86
+447
+1
+1313nt_Street 76
+128
+1
+374nt_Street 48
+12
+1
+41nt_Street 99
+20
+1
+63nt_Street 9
+432
+2
+1277nt_Street 26
+1278nt_Street 53
+256
+1
+768nt_Street 63
+266
+1
+793nt_Street 54
+152
+1
+442nt_Street 84
+21
+1
+68nt_Street 9
+414
+2
+1222nt_Street 28
+1221nt_Street 24
+415
+2
+1224nt_Street 38
+1223nt_Street 12
+47
+1
+144nt_Street 79
+271
+1
+807nt_Street 66
+499
+1
+1468nt_Street 91
+349
+1
+1030nt_Street 30
+496
+2
+1461nt_Street 37
+1460nt_Street 41
+298
+1
+877nt_Street 56
+14
+1
+45nt_Street 95
