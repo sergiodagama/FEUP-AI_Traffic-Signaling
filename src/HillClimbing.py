@@ -1,6 +1,6 @@
 import random
 from Simulation import Simulation
-from Parser import parse_input_file
+import matplotlib.pyplot as plt
 
 class HillClimbing:
     '''
@@ -81,9 +81,12 @@ class HillClimbing:
         print("Initial Solution with a score of", currScore)
         print("Let the simulation begin")
         it = 0
+        evaluation = []
         while it < iterations:
+            evaluation.append(currScore)
             it += 1
-            for neighbour in self.neighbours(currSol):
+            neighboursList = self.neighbours(currSol)
+            for neighbour in neighboursList:
                 self.simulation.set_state(neighbour)
                 self.simulation.run()
                 neighbourScore = self.simulation.score
@@ -92,6 +95,12 @@ class HillClimbing:
                     currScore = neighbourScore
                     it = 0
                 print("Current best solution : ", currScore ," ", round(100 * (it / iterations),2)," %", end='\r')
+        '''generating a plot'''
+        plt.xlabel('Iteration')
+        plt.ylabel('Evaluation')
+        print(len(evaluation))
+        plt.plot(range(len(evaluation)),evaluation)
+        plt.show()
         return (currSol, currScore)
 
     def run(self,iterations):
@@ -105,7 +114,9 @@ class HillClimbing:
         print("Initial Solution with a score of", currScore)
         print("Let the simulation begin")
         it = 0
+        evaluation = []
         while it < iterations:
+            evaluation.append(currScore)
             neighbour = self.generateNeighbour(currSol,random.randint(0,1))
             it += 1
             self.simulation.set_state(neighbour)
@@ -116,4 +127,9 @@ class HillClimbing:
                 currScore = neighbourScore
                 it = 0
             print("Current best solution : ", currScore ," ", round(100 * (it / iterations),2)," %", end='\r')
+        '''generating a plot'''
+        plt.xlabel('Iteration')
+        plt.ylabel('Evaluation')
+        plt.plot(range(len(evaluation)),evaluation)
+        plt.show()
         return (currSol, currScore)
