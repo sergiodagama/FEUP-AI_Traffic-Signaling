@@ -3,14 +3,17 @@ from Simulation import Simulation
 from Parser import parse_input_file
 
 class HillClimbing:
+    '''
+    Class storing a simulation and solving it using hill climbing and some variations
+    '''
 
     def __init__(self, sim : Simulation):
         self.simulation = sim
 
-    '''
-    change a random traffic light duration
-    '''
     def changeTrafficlightDuration(self, trafficLights : list):
+        '''
+        Chooses a random Trafficlight and gives it a random duration between 1 and the max simulation time
+        '''
         new_trafficLights = []
         for i in trafficLights:
             new_trafficLights.append(i)
@@ -20,54 +23,92 @@ class HillClimbing:
 
         return new_trafficLights
 
-    def swapIntersections(self, intersections : list):
-        new_intersections = []
-        for i in intersections:
-            new_intersections.append(i)
-        id1 = random.randrange(len(intersections))
-        id2 = random.randrange(len(intersections))
+    def swapTrafficlight(self, trafficLights : list):
+        '''
+        Chooses between two Trafficlights and swaps their order in the cycle
+        '''
+        
+        new_trafficLights = []
+        for i in trafficLights:
+            new_trafficLights.append(i)
+        id1 = random.randrange(len(trafficLights))
+        id2 = random.randrange(len(trafficLights))
 
         while id1 == id2:
-            id2 = random.randrange(len(intersections))
+            id2 = random.randrange(len(trafficLights))
 
-        new_intersections[id1] , new_intersections[id2] = new_intersections[id2] , new_intersections[id1]
-        return new_intersections
+        new_trafficLights[id1] , new_trafficLights[id2] = new_trafficLights[id2] , new_trafficLights[id1]
+        return new_trafficLights
     
-    def generateNeighbour(self,currSol : list):
+    def generateNeighbour(self,currSol : list,index : int):
+        '''
+        Generates one neighbour currosponding to the 'index'th operation
+        '''
         newSol = []
         for i in currSol:
             newSol.append(i)
-        random_digit = random.randint(0,1)
+
         id1 = random.randrange(len(currSol)) # escolhemos uma interseção para alterar
-        if(random_digit == 0):
+
+        if index == 0: # randomly generate traffic light duration
             newSol[id1].set_traffic_lights(self.changeTrafficlightDuration(currSol[id1].get_traffic_lights()))
-        else:
+
+        elif index == 1: #randomly swaps two traffic lights in the cycle
             while len(currSol[id1].get_traffic_lights()) < 2:
                 id1 = random.randrange(len(currSol))
-            newSol[id1].set_traffic_lights(self.swapIntersections(currSol[id1].get_traffic_lights()))
+            newSol[id1].set_traffic_lights(self.swapTrafficlight(currSol[id1].get_traffic_lights()))
         
         return newSol
 
+    def neighbours(self, currSol : list):
+        '''
+        Generates all possible solutions for a solution
+        '''
+        neighboursList = []
+        nFunctions = 2
+        for i in range(nFunctions):
+            neighboursList.append(self.generateNeighbour(currSol,i))
+        return neighboursList
 
-
-    def run(self):
+    def run_steepest_ascent(self):
+        '''
+        Hill-climbing steepest ascent optimization technique
+        '''
+        
         currSol = self.simulation.output_state()
         self.simulation.run()
         currScore = self.simulation.score
-        print("Initial Solution with a score of ", currScore)
-        for x in currSol:
-            print(x)
+        print("Initial Solution with a score of", currScore)
         print("Let the simulation begin")
         it = 0
+        maxIterations = 100
+        while it < maxIterations:
+            it += 1
+            for neighbour in self.neighbours(currSol):
+                self.simulation.set_state(neighbour)
+                self.simulation.run()
+                neighbourScore = self.simulation.score
+                if neighbourScore > currScore:
+                    currSol = self.simulation.output_state()
+                    currScore = neighbourScore
+                    it = 0
+                print("Current best solution : ", currScore ," ", round(100 * (it / maxIterations),2)," %", end='\r')
+        return (currSol, currScore)
 
-        while it < 100:
-            '''
-            rn apenas testamos um neighbour e continuamos, porém tenho que dar refactor nisso
-            a lógica da coisa é criar TODOS os neighbours possiveis e depois escolher o 1º que verificar um maior score
-            (se steepest ascent, o nome dá hint, escolher o MELHOR neighbour)
-    
-            '''
-            neighbour = self.generateNeighbour(currSol)
+    def run(self):
+        '''
+        Hill-climbing optimization technique
+        '''
+
+        currSol = self.simulation.output_state()
+        self.simulation.run()
+        currScore = self.simulation.score
+        print("Initial Solution with a score of", currScore)
+        print("Let the simulation begin")
+        it = 0
+        maxIterations = 100
+        while it < maxIterations:
+            neighbour = self.generateNeighbour(currSol,random.randrange(0,1))
             it += 1
             self.simulation.set_state(neighbour)
             self.simulation.run()
@@ -76,14 +117,5 @@ class HillClimbing:
                 currSol = self.simulation.output_state()
                 currScore = neighbourScore
                 it = 0
-                print("Found a better solution with a score of ", currScore)
-            else:
-                print(neighbourScore)
+            print("Current best solution : ", currScore ," ", round(100 * (it / maxIterations),2)," %", end='\r')
         return (currSol, currScore)
-city_plan_data = parse_input_file("docs/city_plans/city_plan_1.txt")
-sim = Simulation(city_plan_data,"random")
-hill_climbing = HillClimbing(sim)
-(bestSol, bestScore) = hill_climbing.run()
-print("End of simulation")
-print(" ")
-print("With a score of ", bestScore)
