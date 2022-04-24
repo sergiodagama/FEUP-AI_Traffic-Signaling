@@ -1,11 +1,8 @@
-from copy import deepcopy
 import random
-import Trafficlight
+
 
 class Intersection:
-
     def __init__(self, id):
-        # self.streets = []
         self.id = id
         self.traffic_lights = []
         self.current_light = 0
@@ -14,10 +11,10 @@ class Intersection:
     def __str__(self):
         output = ""
         output += str(self.id)
-        output += ("\n")
+        output += "\n"
         for i in self.traffic_lights:
             output += str(i)
-            output += ("\n")
+            output += "\n"
         return output
 
     def replicate(self):
@@ -30,12 +27,13 @@ class Intersection:
         self.traffic_lights.append(traffic_light)
         self.num_of_lights += 1
 
-    def has_street(self,street):
+    def has_street(self, street):
         return next((True for x in self.traffic_lights if x.street == street), False)
 
     def swap_random(self):
-        if self.num_of_lights < 2: return
-        first, second = random.sample(range(0,self.num_of_lights),2)
+        if self.num_of_lights < 2:
+            return
+        first, second = random.sample(range(0, self.num_of_lights), 2)
         temp = self.traffic_lights[first]
         self.traffic_lights[first] = self.traffic_lights[second]
         self.traffic_lights[second] = temp
@@ -43,8 +41,8 @@ class Intersection:
     def run(self):
         loops = 0
         while self.traffic_lights[self.current_light].current_time == 0 and loops < self.num_of_lights:
-            loops+=1
-            self.current_light +=1
+            loops += 1
+            self.current_light += 1
             self.current_light %= self.num_of_lights
             self.traffic_lights[self.current_light].update_time()
         self.traffic_lights[self.current_light].current_time -= 1
@@ -60,9 +58,9 @@ class Intersection:
         for light in self.traffic_lights:
             while light.remove_car() is not None:
                 pass
+
     def get_traffic_lights(self):
         return self.traffic_lights
-    
-    def set_traffic_lights(self,new_traffic_lights):
+
+    def set_traffic_lights(self, new_traffic_lights):
         self.traffic_lights = new_traffic_lights
-    

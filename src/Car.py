@@ -1,5 +1,6 @@
 from random import randint
 
+
 class Car:
     def __init__(self, path_length, path):
         self.path_length = path_length
@@ -9,10 +10,8 @@ class Car:
         self.draw_on = True
         self.color = [randint(0,255),randint(0,255),randint(0,255)]
 
-
     def enter_next_street(self):
         self.current_street += 1
-        # print("\tcurrent street value: "+ str(self.current_street) + " for " + str(self.path_length))
         self.remaining_cost = self.path[self.current_street].time_cost
 
     def current_road(self):
