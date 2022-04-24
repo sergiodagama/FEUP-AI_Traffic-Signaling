@@ -146,12 +146,12 @@ class GloriousEvolution:
         sim = Simulation(self.city_plan, "array", self.best_simulation)
         sim.print_state(self.best_simulation)
         print("")
-        plt.plot(range(0,self.number_of_generations), graph_average, color='green', linewidth=2, marker='o', markerfacecolor='blue', markersize=4)
+        plt.plot(range(0,self.number_of_generations), graph_average, color='green', linewidth=2, marker='.', markerfacecolor='blue', markersize=4)
         plt.ylabel('Average Scores')
         plt.xlabel('Generation')
         plt.savefig(city_plan_name+"_GA_average.png",format="png")
         plt.show()
-        plt.plot(range(0,self.number_of_generations), graph_best, color='green', linewidth=2, marker='o', markerfacecolor='blue', markersize=4)
+        plt.plot(range(0,self.number_of_generations), graph_best, color='green', linewidth=2, marker='.', markerfacecolor='blue', markersize=4)
         plt.ylabel('Best Scores')
         plt.xlabel('Generation')
         plt.savefig(city_plan_name+"_GA_best.png",format="png")
@@ -161,7 +161,7 @@ class GloriousEvolution:
         poly1d_fn = np.poly1d(coef) 
         # poly1d_fn is now a function which takes in x and returns an estimate for y
         x = range(self.number_of_generations)
-        plt.plot(x,graph_average, 'yo', x, poly1d_fn(x), '--k') #'--k'=black dashed line, 'yo' = yellow circle marker
+        plt.plot(x,graph_average, 'y.', x, poly1d_fn(x), '--k') #'--k'=black dashed line, 'yo' = yellow circle marker
 
         plt.xlim(0, self.number_of_generations)
         plt.ylim(0, best_score)
