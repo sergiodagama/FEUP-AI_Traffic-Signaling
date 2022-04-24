@@ -1,3 +1,4 @@
+from copy import deepcopy
 import random
 import time
 import sys
@@ -96,9 +97,9 @@ class GloriousEvolution:
         self.run_current_gen()
         for sim in self.current_gen:
             if sim.score > best_gen_score:
-                best_gen_score = sim.score
+                best_gen_score = deepcopy(sim.score)
                 if best_gen_score > best_score:
-                    best_score = best_gen_score
+                    best_score = deepcopy(best_gen_score)
                     self.best_simulation = sim.output_state_copy()
         loading_bar_size = 50
         load = loading_bar_size//self.number_of_generations
@@ -111,9 +112,9 @@ class GloriousEvolution:
             self.run_current_gen()
             for sim in self.current_gen:
                 if sim.score > best_gen_score:
-                    best_gen_score = sim.score
+                    best_gen_score = deepcopy(sim.score)
                     if best_gen_score > best_score:
-                        best_score = sim.score
+                        best_score = deepcopy(sim.score)
                         self.best_simulation = sim.output_state_copy()
             sys.stdout.write("\x1b[1A\x1b[2K")
             sys.stdout.write("\x1b[1A\x1b[2K")
@@ -130,4 +131,5 @@ class GloriousEvolution:
         print("Success! Best score on final generation was: " + str(best_score))
         sim = Simulation(self.city_plan, "array", self.best_simulation)
         sim.print_state(self.best_simulation)
+        print("")
         return self.best_simulation
