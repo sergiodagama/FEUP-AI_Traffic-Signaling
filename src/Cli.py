@@ -77,12 +77,25 @@ def cli():
             if algo == 0:
                 break
             elif algo == 1:
-                # hill climbing
-                hill_climbing = HillClimbing()
-                (best_state, bestScore) = hill_climbing.run(simulation)
-                simulation.reset()
-                print("End of simulation\n")
-                print("With a score of ", bestScore)
+                print("0: Hill Climbing otimization technique")
+                print("1: Hill Climbing with steepest ascent optimization technique")
+                techinque = get_input()
+                print("How many iterations?")
+                iterations = get_input()
+                if iterations < 1:
+                    iterations = 100
+                if techinque == 0:
+                    hill_climbing = HillClimbing(simulation)
+                    (best_state, bestScore) = hill_climbing.run(iterations)
+                    simulation.reset()
+                    print("End of Hill climbing simulation\n")
+                    print("With a final score of ", bestScore)
+                elif techinque == 1:
+                    hill_climbing = HillClimbing(simulation)
+                    (best_state, bestScore) = hill_climbing.run_steepest_ascent(iterations)
+                    simulation.reset()
+                    print("End of Hill climbing with steepest ascent techinque simulation\n")
+                    print("With a final score of ", bestScore)
 
             elif algo == 2:
                 number_of_coolings = 6

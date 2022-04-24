@@ -70,19 +70,18 @@ class HillClimbing:
             neighboursList.append(self.generateNeighbour(currSol,i))
         return neighboursList
 
-    def run_steepest_ascent(self):
+    def run_steepest_ascent(self,iterations):
         '''
         Hill-climbing steepest ascent optimization technique
         '''
-        
+
         currSol = self.simulation.output_state()
         self.simulation.run()
         currScore = self.simulation.score
         print("Initial Solution with a score of", currScore)
         print("Let the simulation begin")
         it = 0
-        maxIterations = 100
-        while it < maxIterations:
+        while it < iterations:
             it += 1
             for neighbour in self.neighbours(currSol):
                 self.simulation.set_state(neighbour)
@@ -92,10 +91,10 @@ class HillClimbing:
                     currSol = self.simulation.output_state()
                     currScore = neighbourScore
                     it = 0
-                print("Current best solution : ", currScore ," ", round(100 * (it / maxIterations),2)," %", end='\r')
+                print("Current best solution : ", currScore ," ", round(100 * (it / iterations),2)," %", end='\r')
         return (currSol, currScore)
 
-    def run(self):
+    def run(self,iterations):
         '''
         Hill-climbing optimization technique
         '''
@@ -106,9 +105,8 @@ class HillClimbing:
         print("Initial Solution with a score of", currScore)
         print("Let the simulation begin")
         it = 0
-        maxIterations = 100
-        while it < maxIterations:
-            neighbour = self.generateNeighbour(currSol,random.randrange(0,1))
+        while it < iterations:
+            neighbour = self.generateNeighbour(currSol,random.randint(0,1))
             it += 1
             self.simulation.set_state(neighbour)
             self.simulation.run()
@@ -117,5 +115,5 @@ class HillClimbing:
                 currSol = self.simulation.output_state()
                 currScore = neighbourScore
                 it = 0
-            print("Current best solution : ", currScore ," ", round(100 * (it / maxIterations),2)," %", end='\r')
+            print("Current best solution : ", currScore ," ", round(100 * (it / iterations),2)," %", end='\r')
         return (currSol, currScore)
