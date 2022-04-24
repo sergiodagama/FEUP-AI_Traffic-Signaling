@@ -1,0 +1,57 @@
+17
+26
+1
+75nt_Street 3
+0
+1
+1nt_Street 13
+27
+2
+78nt_Street 3
+76nt_Street 3
+28
+1
+82nt_Street 7
+37
+1
+113nt_Street 19
+4
+2
+11nt_Street 1
+12nt_Street 13
+13
+1
+41nt_Street 12
+34
+2
+102nt_Street 1
+101nt_Street 17
+16
+1
+49nt_Street 6
+22
+2
+65nt_Street 1
+64nt_Street 1
+3
+2
+9nt_Street 17
+7nt_Street 10
+14
+1
+43nt_Street 18
+19
+1
+57nt_Street 3
+10
+1
+29nt_Street 10
+6
+1
+19nt_Street 16
+32
+1
+95nt_Street 6
+29
+1
+84nt_Street 19

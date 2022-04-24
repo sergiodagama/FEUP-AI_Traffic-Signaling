@@ -1,4 +1,5 @@
 from copy import deepcopy
+import gc
 from Parser import parse_state_file
 from Intersection import *
 from Trafficlight import TrafficLight
@@ -77,6 +78,10 @@ class Simulation:
                     animation.draw_car(car)
             animation.update()
             sleep(1)
+        animation.exit_on_click()
+        animation.free_turtle()
+        del animation
+        gc.collect()
 
     def create_random_state(self):
         intersections = []
