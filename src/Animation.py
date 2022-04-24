@@ -1,3 +1,4 @@
+import gc
 from turtle import Screen, Turtle
 import turtle
 from Car import Car
@@ -52,10 +53,14 @@ class Animation:
         street = car.current_road()
         begin = street.start_intersection
         end = street.end_intersection
-        dirX = (self.nodes[begin][0] - self.nodes[end][0])/street.time_cost
-        dirY = (self.nodes[begin][1] - self.nodes[end][1])/street.time_cost
-        posX = self.nodes[end][0] + (dirX * car.remaining_cost)
-        posY = self.nodes[end][1] + (dirY * car.remaining_cost)
+        if car.remaining_cost <= 0:
+            posX = self.nodes[end][0]
+            posY = self.nodes[end][1]
+        else:
+            dirX = (self.nodes[begin][0] - self.nodes[end][0])/street.time_cost
+            dirY = (self.nodes[begin][1] - self.nodes[end][1])/street.time_cost
+            posX = self.nodes[end][0] + (dirX * car.remaining_cost)
+            posY = self.nodes[end][1] + (dirY * car.remaining_cost)
         self.turtle.up()
         self.turtle.setpos(posX, posY)
         self.turtle.seth(self.turtle.towards(self.nodes[end][0],self.nodes[end][1]))
@@ -66,3 +71,10 @@ class Animation:
     def clear_cars(self):
         self.turtle.clearstamps()
 
+    def exit_on_click(self):
+        turtle.exitonclick()
+
+    def free_turtle(self):
+        del self.screen
+        del self.turtle
+        gc.collect()
