@@ -42,8 +42,9 @@ class Car:
         self.number_of_streets = num
         self.streets = streets
 
-#default:   sim_time=10, num_of_nodes=10, num_of_cars=10, min_dist_sq=100,
-#           bonus=1000, max_street_cost=6, min_street_len=3, max_street_len=5, file_name=''):
+#default paramenters:
+#    sim_time=10, num_of_nodes=10, num_of_cars=10, min_dist_sq=100,
+#        bonus=1000, max_street_cost=6, min_street_len=3, max_street_len=5, file_name=''):
 def main(list_args):
     args = [10, 10, 10, 100, 1000, 6, 3, 5, ""]
     for i,c in enumerate(list_args):
@@ -64,9 +65,13 @@ def main(list_args):
     for i in range(0,num_of_nodes):
         acceptable = False
         node = None
+        failed = 0
         while(not acceptable):
             acceptable = True
             node = Node(i,randint(0,1000),randint(0,1000))
+            failed+=1
+            if failed > 10000:
+                raise Exception("Error: Number of Nodes and Minimum Distance specified imcompatible. Cannot generate map")
             for n in nodes:
                 if n.sq_dist(node)<min_dist_sq:
                     acceptable = False
@@ -181,13 +186,16 @@ def main(list_args):
     file.close()
 
 
-    # create .eps map
-    sc.getcanvas().postscript(file="city_plans_map/" + file_name+".eps",colormode="color")
-    time.sleep(1)
+    try:
+        # create .eps map
+        sc.getcanvas().postscript(file="city_plans_map/" + file_name+".eps",colormode="color")
+        time.sleep(1)
+        # create .png map from .eps
+        img = Image.open("city_plans_map/" + file_name+".eps") 
+        img.save("city_plans_map/" + file_name+ ".png", 'png')
+    except:
+        print("Could not export the picture of the generated map")
 
-    # create .png map from .eps
-    img = Image.open("city_plans_map/" + file_name+".eps") 
-    img.save("city_plans_map/" + file_name+ ".png", 'png')
 
 
 
@@ -196,4 +204,8 @@ def parse(name):
 
 
 if __name__ == '__main__':
-    sys.exit(main(sys.argv[1:]))
+    try:
+        sys.exit(main(sys.argv[1:]))
+    except Exception as Argument:
+        print(Argument)
+        print("Please try another combination of number of nodes and minimum distance")
