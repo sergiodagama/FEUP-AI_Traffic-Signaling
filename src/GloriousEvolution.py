@@ -32,6 +32,8 @@ class GloriousEvolution:
             simulation.run()
             total_score += simulation.score
         #assess each simulation reproductive probability, each object as the lowest value in probability interval that will choose it 
+        if total_score == 0:
+            raise Exception("No solution found, please check if the city_map is possible")
         for i in range(self.population_size):
             simulation = self.current_gen[i]
             if i == self.population_size-1:
@@ -94,9 +96,12 @@ class GloriousEvolution:
                 if best_gen_score > best_score:
                     best_score = best_gen_score
                     self.best_simulation = sim.output_state_copy()
-        print("\n")
-        print("best round score: "+ str(best_score))
-        for i in range(self.number_of_generations):
+        loading_bar_size = 50
+        load = loading_bar_size//self.number_of_generations
+        print("best overall score: " + str(best_score)+", best round score: "+ str(best_gen_score)+ 
+                "\n["+ str(1) + " out of " + str(self.number_of_generations)+ "] generations complete"+
+                "\nLoading[{}{}]".format('#'*load,' '*(loading_bar_size-load)))
+        for i in range(1,self.number_of_generations):
             self.reproduce()
             # self.current_gen[0].set_state(self.best_simulation)
             best_gen_score = -1
@@ -110,12 +115,13 @@ class GloriousEvolution:
             sys.stdout.write("\x1b[1A\x1b[2K")
             sys.stdout.write("\x1b[1A\x1b[2K")
             sys.stdout.write("\x1b[1A\x1b[2K")
-            load = (i*20)//self.number_of_generations
+            load = ((i+1)*loading_bar_size)//self.number_of_generations
             print("best overall score: " + str(best_score)+", best round score: "+ str(best_gen_score)+ 
                 "\n["+ str(i+1) + " out of " + str(self.number_of_generations)+ "] generations complete"+
-                "\nLoading[{}{}]".format('#'*load,' '*(20-load)))
+                "\nLoading[{}{}]".format('#'*load,' '*(loading_bar_size-load)))
         sys.stdout.write("\x1b[1A\x1b[2K")
-        print("Loading[{}]".format('#'*20))
+        sys.stdout.write("\x1b[1A\x1b[2K")
+        print("["+ str(self.number_of_generations) + " out of " + str(self.number_of_generations)+ "] generations complete\nLoading[{}]".format('#'*loading_bar_size))
         print("                                                                      ")
         print("Success! Best score on final generation was: " + str(best_score))
         return self.best_simulation

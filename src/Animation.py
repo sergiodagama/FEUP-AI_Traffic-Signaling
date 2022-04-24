@@ -16,6 +16,7 @@ class Animation:
         self.turtle.color("#0000FF")
         self.turtle.hideturtle()
         self.turtle.shape('turtle')
+        turtle.TurtleScreen._RUNNING=True
     
     def draw_map(self):
         rootwindow = self.screen.getcanvas().winfo_toplevel()
