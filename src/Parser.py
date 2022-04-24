@@ -84,3 +84,17 @@ def parse_state_file(path,streets):
         intersections.append(intersection)
     file.close()
     return intersections
+
+def coord_parser(path):
+    nodes = []
+    streets = []
+    file = open(path, 'r')
+    lines = file.readlines()
+    num_of_nodes, num_of_streets = lines.pop(0).split()
+    for _ in range(int(num_of_nodes)):
+        x,y = lines.pop(0).split()
+        nodes.append([int(x),int(y)])
+    for _ in range(int(num_of_streets)):
+        begin,end = lines.pop(0).split()
+        streets.append([int(begin),int(end)])
+    return nodes,streets

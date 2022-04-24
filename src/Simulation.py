@@ -2,6 +2,8 @@ from copy import deepcopy
 from Parser import parse_state_file
 from Intersection import *
 from Trafficlight import TrafficLight
+from Animation import Animation
+from time import sleep
 import random
 
 # How to use Simulation:
@@ -49,7 +51,32 @@ class Simulation:
                     car.enter_next_street()
             self.draw()
 
-
+    def run_animated(self, coords):
+        animation = Animation(coords)
+        animation.draw_map()
+        animation.update()
+        sleep(1)
+        for t in range(0, self.duration+1):
+            animation.clear_cars()
+            for car in self.cars:       # cars decrease remaining cost, if it reaches 0 they queue on TrafficLight
+                car_position = car.drive()
+                if(car_position == 1):     # car did not reach end of the road
+                    light = self.streets_to_lights[car.current_road().street_name] # next((traffic_light for inter in self.intersections for traffic_light in inter.traffic_lights if traffic_light.street==car.current_road()),None)
+                    light.add_car(car)
+                    # print("\tAdding element to street: " + str(car.current_road().street_name))
+                elif(car_position == 2):    #car reached end, add to score
+                    self.score_evaluation(t)
+                    # self.cars.remove(car)
+            for intersection in self.intersections:     #first update which traffic light is on, then dequeue one form the green light
+                car = intersection.run()
+                # print("Running intersection: "+ str(intersection.id))
+                if car is not None:
+                    car.enter_next_street()
+            for car in self.cars:
+                if car.draw_on:
+                    animation.draw_car(car)
+            animation.update()
+            sleep(1)
 
     def create_random_state(self):
         intersections = []

@@ -3,9 +3,7 @@ import sys
 from PIL import Image
 from random import randint, sample
 from turtle import Turtle, Screen
-from turtle import Turtle
 import time
-from unicodedata import name
 
 
 class Node:
@@ -160,7 +158,8 @@ def main(list_args):
     if file_name == "": exit(0)
     file_name = parse(file_name)
     print("Generating file: "+file_name+".txt")
-
+    
+    # create city_plan file
     file = open("city_plans/" + file_name + ".txt", 'x')
     file.write(str(sim_time)+" "+str(num_of_nodes)+" "+str(len(streets))+" "+str(num_of_cars)+" "+str(bonus)+"\n")
     for street in streets:
@@ -172,9 +171,21 @@ def main(list_args):
         file.write("\n")
     file.close()
 
+    # create city_plan.coords
+    file = open("city_plans/" + file_name + ".coords", 'x')
+    file.write(str(num_of_nodes) +" "+str(len(streets))+"\n")
+    for node in nodes:
+        file.write(str(node.posX)+" "+str(node.posY)+"\n")
+    for street in streets:
+        file.write(str(street.node_from)+" "+str(street.node_to)+"\n")
+    file.close()
+
+
+    # create .eps map
     sc.getcanvas().postscript(file="city_plans_map/" + file_name+".eps",colormode="color")
     time.sleep(1)
 
+    # create .png map from .eps
     img = Image.open("city_plans_map/" + file_name+".eps") 
     img.save("city_plans_map/" + file_name+ ".png", 'png')
 

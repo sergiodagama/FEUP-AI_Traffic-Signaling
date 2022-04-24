@@ -1,4 +1,5 @@
 import random
+import sys
 from Simulation import Simulation
 
 class GloriousEvolution:
@@ -9,6 +10,7 @@ class GloriousEvolution:
         self.number_of_generations = number_of_generations
         self.radiation_dosage = radiation_dosage
         self.current_gen = self.generation_initializer()
+        self.best_simulation = None
 
     def generation_initializer(self):
         gen = []
@@ -84,25 +86,32 @@ class GloriousEvolution:
 
     def run(self):
         best_score = -1
-        best_sim = None
+        best_gen_score = -1
         self.run_current_gen()
         for sim in self.current_gen:
-            if sim.score > best_score:
-                best_score = sim.score
-                best_sim = sim
-        print("best round score: "+ str(best_score),end='\r')
-        print(best_sim)
+            if sim.score > best_gen_score:
+                best_gen_score = sim.score
+                if best_gen_score > best_score:
+                    best_score = best_gen_score
+                    self.best_simulation = sim.output_state_copy()
+        print("")
+        print("best round score: "+ str(best_score))
         for i in range(self.number_of_generations):
-            best_score = -1
-            best_sim = None
             self.reproduce()
+            # self.current_gen[0].set_state(self.best_simulation)
+            best_gen_score = -1
             self.run_current_gen()
             for sim in self.current_gen:
-                if sim.score > best_score:
-                    best_score = sim.score
-                    best_sim = sim
-            print("best round score: "+ str(best_score) +". ["+ str(i) + " out of " + str(self.number_of_generations)+ "] generations complete", end='\r')
-            # print(best_sim)
+                if sim.score > best_gen_score:
+                    best_gen_score = sim.score
+                    if best_gen_score > best_score:
+                        best_score = best_gen_score
+                        self.best_simulation = sim.output_state_copy()
+            sys.stdout.write("\x1b[1A\x1b[2K")
+            sys.stdout.write("\x1b[1A\x1b[2K")
+            print("best overall score: " + str(best_score)+", best round score: "+ str(best_gen_score)+ 
+                "\n["+ str(i+1) + " out of " + str(self.number_of_generations)+ "] generations complete")
         print("                                                                      ")
         print("Success! Best score on final generation was: " + str(best_score))
+        return self.best_simulation
         

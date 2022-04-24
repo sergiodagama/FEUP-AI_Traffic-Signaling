@@ -1,9 +1,13 @@
+from random import randint
+
 class Car:
     def __init__(self, path_length, path):
         self.path_length = path_length
         self.path = path
         self.current_street = 0
         self.remaining_cost = 1
+        self.draw_on = True
+        self.color = [randint(0,255),randint(0,255),randint(0,255)]
 
 
     def enter_next_street(self):
@@ -19,6 +23,7 @@ class Car:
         if self.remaining_cost <= 0:
             if self.current_street+1 == self.path_length:
                 self.current_street +=1
+                self.draw_on = False
                 return 2
             elif self.remaining_cost == 0:
                 return 1
@@ -39,3 +44,4 @@ class Car:
     def reset(self):
         self.current_street = 0
         self.remaining_cost = 1
+        self.draw_on = True
