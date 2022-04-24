@@ -1,4 +1,3 @@
-import math
 import sys
 from PIL import Image
 from random import randint, sample
@@ -12,7 +11,6 @@ class Node:
         self.posX = x
         self.posY = y
         self.dist_to_neigh = 0
-        self.starting_streets = []
 
     def sq_dist(self,other):
         return pow(self.posX-other.posX,2) + pow(self.posY-other.posY,2)
@@ -47,6 +45,7 @@ class Car:
 #        bonus=1000, max_street_cost=6, min_street_len=3, max_street_len=5, file_name=''):
 def main(list_args):
     args = [10, 10, 10, 100, 1000, 6, 3, 5, ""]
+    # changing default parameters to passed parameters
     for i,c in enumerate(list_args):
         args[i] = c
     sim_time=int(args[0])
@@ -62,6 +61,7 @@ def main(list_args):
     nodes = []
     streets = []
     cars = []
+    # generate Nodes ensuring they are not too close
     for i in range(0,num_of_nodes):
         acceptable = False
         node = None
@@ -79,6 +79,7 @@ def main(list_args):
         nodes.append(node)
     print("Nodes Successfully Generated")
     
+    #generate streets between closest nodes
     for node in nodes:
         neighboors = node.closest(nodes,randint(2,4))
         for node2 in neighboors:
@@ -88,31 +89,22 @@ def main(list_args):
                 Street.static_name += 1
                 streets.append(street)
     print("Streets Successfully Generated")
-    
-
-    for street in streets:
-        node = next((x for x in nodes if x.id == street.node_from),None)
-        if node is None: raise Exception("Error, no node compatible with that street")
-        if street.name not in node.starting_streets:
-            node.starting_streets.append(street.name)
 
 
-    for index in range(0,num_of_cars):
+    # generate paths for cars to traverse during execution
+    for _ in range(0,num_of_cars):
         acceptable = False
         while(not acceptable):
             acceptable = True
             road_map = []
             current_street = sample(streets, 1)[0]
             road_map.append(current_street)
-            for roads in range(1,randint(min_street_len,max_street_len)):
-                # print(roads)
+            for _ in range(1,randint(min_street_len,max_street_len)):
                 node = next((x for x in nodes if x.id == current_street.node_to),None)
-                # print(node.id)
                 if node is None:
                     acceptable = False
                     break
                 street = [x for x in streets if x.node_from == node.id]
-                # print(street)
                 if len(street) == 0:
                     acceptable = False
                     break
@@ -122,7 +114,7 @@ def main(list_args):
     print("Cars Successfully Generated")
 
 
-
+    # generate visual representation of the city_plan map so the user can better tweak the parameters
     print("Generating Graph")
     sc=Screen()
     sc.setworldcoordinates(-20,-20,1020,1020)
@@ -132,6 +124,7 @@ def main(list_args):
     t.speed(0)
     t.color("#0000FF")
     t.hideturtle()
+    # draw streets with an arrow in the midle signaling traffic direction
     for street in streets:
         node_from = next((x for x in nodes if x.id == street.node_from),None)
         node_to = next((x for x in nodes if x.id == street.node_to),None)
@@ -152,19 +145,21 @@ def main(list_args):
         t.forward(15)
         t.setpos(node_to.posX,node_to.posY)
 
+    # draw intersections as red dots
     for node in nodes:
         t.up()
         t.setpos(node.posX,node.posY)
         t.dot(7,"#F00000")
     sc.update()
-
+    sc.exitonclick()
     input("Press Enter to continue")
 
+    # if no file name is specified the results are not saved
     if file_name == "": exit(0)
     file_name = parse(file_name)
     print("Generating file: "+file_name+".txt")
     
-    # create city_plan file
+    # create city_plan.txt
     file = open("city_plans/" + file_name + ".txt", 'x')
     file.write(str(sim_time)+" "+str(num_of_nodes)+" "+str(len(streets))+" "+str(num_of_cars)+" "+str(bonus)+"\n")
     for street in streets:
@@ -176,7 +171,9 @@ def main(list_args):
         file.write("\n")
     file.close()
 
+
     # create city_plan.coords
+    print("Generating file: "+file_name+".coords")
     file = open("city_plans/" + file_name + ".coords", 'x')
     file.write(str(num_of_nodes) +" "+str(len(streets))+"\n")
     for node in nodes:
@@ -185,6 +182,7 @@ def main(list_args):
         file.write(str(street.node_from)+" "+str(street.node_to)+"\n")
     file.close()
 
+    print("Done")
 
     try:
         # create .eps map
@@ -193,6 +191,7 @@ def main(list_args):
         # create .png map from .eps
         img = Image.open("city_plans_map/" + file_name+".eps") 
         img.save("city_plans_map/" + file_name+ ".png", 'png')
+        print("New files: ["+file_name+".eps, "+file_name+".png] created")
     except:
         print("Could not export the picture of the generated map")
 
