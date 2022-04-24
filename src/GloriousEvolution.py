@@ -3,6 +3,9 @@ import random
 import time
 import sys
 from Simulation import Simulation
+import matplotlib.pyplot as plt
+import numpy as np
+
 
 
 class GloriousEvolution:
@@ -90,37 +93,48 @@ class GloriousEvolution:
                         else:
                             light.time += random.sample([-1, 1], 1)[0]
 
-    def run(self):
+    def run(self, city_plan_name):
+        graph_best = []
+        graph_average = []
         start_time = time.time()
         best_score = -1
         best_gen_score = -1
         self.run_current_gen()
+        average_score = 0
         for sim in self.current_gen:
+            average_score += sim.score
             if sim.score > best_gen_score:
                 best_gen_score = deepcopy(sim.score)
                 if best_gen_score > best_score:
                     best_score = deepcopy(best_gen_score)
                     self.best_simulation = sim.output_state_copy()
+        graph_average.append(average_score/self.population_size)
+        graph_best.append(best_gen_score)
         loading_bar_size = 50
         load = loading_bar_size//self.number_of_generations
-        print("best overall score: " + str(best_score)+", best round score: "+ str(best_gen_score)+"\ttime left: "+str((time.time()-start_time)*(self.number_of_generations-1))+ 
+        print("best overall score: " + str(best_score)+", best round score: "+ str(best_gen_score)+"\ttime left: {:.3f} seconds".format((time.time()-start_time)*(self.number_of_generations-1))+ 
                 "\n["+ str(1) + " out of " + str(self.number_of_generations)+ "] generations complete"+
                 "\nLoading[{}{}]".format('#'*load,' '*(loading_bar_size-load)))
         for i in range(1,self.number_of_generations):
+            start_time = time.time()
             self.reproduce()
             best_gen_score = -1
             self.run_current_gen()
+            average_score = 0
             for sim in self.current_gen:
+                average_score += sim.score
                 if sim.score > best_gen_score:
                     best_gen_score = deepcopy(sim.score)
                     if best_gen_score > best_score:
                         best_score = deepcopy(sim.score)
                         self.best_simulation = sim.output_state_copy()
+            graph_average.append(average_score/self.population_size)
+            graph_best.append(best_gen_score)
             sys.stdout.write("\x1b[1A\x1b[2K")
             sys.stdout.write("\x1b[1A\x1b[2K")
             sys.stdout.write("\x1b[1A\x1b[2K")
             load = ((i+1)*loading_bar_size)//self.number_of_generations
-            print("best overall score: " + str(best_score)+", best round score: "+ str(best_gen_score)+"\ttime left: "+str((time.time()-start_time)*(self.number_of_generations-i))+ 
+            print("best overall score: " + str(best_score)+", best round score: "+ str(best_gen_score)+"\ttime left: {:.3f} seconds".format((time.time()-start_time)*(self.number_of_generations-i))+ 
                 "\n["+ str(i+1) + " out of " + str(self.number_of_generations)+ "] generations complete"+
                 "\nLoading[{}{}]".format('#'*load,' '*(loading_bar_size-load)))
         sys.stdout.write("\x1b[1A\x1b[2K")
@@ -132,4 +146,25 @@ class GloriousEvolution:
         sim = Simulation(self.city_plan, "array", self.best_simulation)
         sim.print_state(self.best_simulation)
         print("")
+        plt.plot(range(0,self.number_of_generations), graph_average, color='green', linewidth=2, marker='o', markerfacecolor='blue', markersize=4)
+        plt.ylabel('Average Scores')
+        plt.xlabel('Generation')
+        plt.savefig(city_plan_name+"_GA_average.png",format="png")
+        plt.show()
+        plt.plot(range(0,self.number_of_generations), graph_best, color='green', linewidth=2, marker='o', markerfacecolor='blue', markersize=4)
+        plt.ylabel('Best Scores')
+        plt.xlabel('Generation')
+        plt.savefig(city_plan_name+"_GA_best.png",format="png")
+        plt.show()
+
+        coef = np.polyfit(range(0,self.number_of_generations),graph_average,100)
+        poly1d_fn = np.poly1d(coef) 
+        # poly1d_fn is now a function which takes in x and returns an estimate for y
+        x = range(self.number_of_generations)
+        plt.plot(x,graph_average, 'yo', x, poly1d_fn(x), '--k') #'--k'=black dashed line, 'yo' = yellow circle marker
+
+        plt.xlim(0, self.number_of_generations)
+        plt.ylim(0, best_score)
+        plt.savefig(city_plan_name+"_GA_average_regression.png",format="png")
+        plt.show()
         return self.best_simulation
