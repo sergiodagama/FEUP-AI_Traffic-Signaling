@@ -61,7 +61,6 @@ def cli():
             city_plan_coords = None
             print("This map does not support animation")
 
-
         while True:
             print("Choose the optimization algorithm: ")
             print("0: Go Back")
@@ -73,28 +72,27 @@ def cli():
             simulation = Simulation(city_plan_data, "random")
             best_state = None
 
-
             if algo == 0:
                 break
             elif algo == 1:
-                print("0: Hill Climbing otimization technique")
+                print("0: Hill Climbing optimization technique")
                 print("1: Hill Climbing with steepest ascent optimization technique")
-                techinque = get_input()
+                technique = get_input()
                 print("How many iterations?")
                 iterations = get_input()
                 if iterations < 1:
                     iterations = 100
-                if techinque == 0:
+                if technique == 0:
                     hill_climbing = HillClimbing(simulation)
                     (best_state, bestScore) = hill_climbing.run(iterations)
                     simulation.reset()
                     print("End of Hill climbing simulation\n")
                     print("With a final score of ", bestScore)
-                elif techinque == 1:
+                elif technique == 1:
                     hill_climbing = HillClimbing(simulation)
                     (best_state, bestScore) = hill_climbing.run_steepest_ascent(iterations)
                     simulation.reset()
-                    print("End of Hill climbing with steepest ascent techinque simulation\n")
+                    print("End of Hill climbing with steepest ascent technique simulation\n")
                     print("With a final score of ", bestScore)
 
             elif algo == 2:
@@ -141,7 +139,6 @@ def cli():
                     simulation.print_state(best_state)
                     print("\nBest State Score: ", best_score)
                     break
-                    
 
             elif algo == 3:
                 # genetic algorithm
@@ -161,6 +158,7 @@ def cli():
                     ev = GloriousEvolution(city_plan_data, radiation_dosage, population_size, number_of_generations)
                     best_state = ev.run()
                     break
+
             elif algo == 4:
                 print("Choose a schedule file from docs/schedules directory")
                 path = input("File Name: ")
@@ -168,7 +166,7 @@ def cli():
                 animation = None
                 simulation.reset()
                 try:
-                    animation = parse_state_file("docs/schedules/"+path+".txt",simulation.streets)
+                    animation = parse_state_file("docs/schedules/"+path+".txt", simulation.streets)
                 except:
                     print("Could not open file '"+path+".txt'")
                     break
@@ -186,15 +184,15 @@ def cli():
             else:
                 print("You have chosen an invalid algorithm!\nPlease try again")
                 continue
-            if(best_state is None):
+            if best_state is None:
                 break
             print("Do you wish to save the schedule of the performing simulation found? (y/n)")
             ans = input()
             if ans in "yY":
-                path=input("Chose a name for the file: ")
+                path = input("Chose a name for the file: ")
                 path = path.split()[0].split(".")[0]
                 sim = Simulation(city_plan_data, "array", best_state)
                 try:
-                    sim.output_state_file("docs/schedules/"+path+".txt",'w')
+                    sim.output_state_file("docs/schedules/"+path+".txt", 'w')
                 except:
                     print("Could not save to file with name '"+path+".txt'")

@@ -154,8 +154,7 @@ class SimulatedAnnealing:
 
             self.simulation.set_state(current_state)
 
-        plt.plot(i_values, s_values, color='green', linewidth=2,
-                     marker='o', markerfacecolor='blue', markersize=4)
+        plt.plot(i_values, s_values, color='green', linewidth=2, marker='o', markerfacecolor='blue', markersize=4)
         plt.ylabel('Score')
         plt.xlabel('Iteration')
         plt.show()

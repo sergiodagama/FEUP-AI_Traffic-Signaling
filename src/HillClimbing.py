@@ -1,16 +1,16 @@
 import random
 from Simulation import Simulation
-from Parser import parse_input_file
+
 
 class HillClimbing:
     '''
     Class storing a simulation and solving it using hill climbing and some variations
     '''
 
-    def __init__(self, sim : Simulation):
+    def __init__(self, sim: Simulation):
         self.simulation = sim
 
-    def changeTrafficlightDuration(self, trafficLights : list):
+    def changeTrafficlightDuration(self, trafficLights: list):
         '''
         Chooses a random Trafficlight and gives it a random duration between 1 and the max simulation time
         '''
@@ -23,7 +23,7 @@ class HillClimbing:
 
         return new_trafficLights
 
-    def swapTrafficlight(self, trafficLights : list):
+    def swapTrafficlight(self, trafficLights: list):
         '''
         Chooses between two Trafficlights and swaps their order in the cycle
         '''
@@ -37,10 +37,10 @@ class HillClimbing:
         while id1 == id2:
             id2 = random.randrange(len(trafficLights))
 
-        new_trafficLights[id1] , new_trafficLights[id2] = new_trafficLights[id2] , new_trafficLights[id1]
+        new_trafficLights[id1], new_trafficLights[id2] = new_trafficLights[id2], new_trafficLights[id1]
         return new_trafficLights
     
-    def generateNeighbour(self,currSol : list,index : int):
+    def generateNeighbour(self, currSol: list, index: int):
         '''
         Generates one neighbour currosponding to the 'index'th operation
         '''
@@ -48,19 +48,19 @@ class HillClimbing:
         for i in currSol:
             newSol.append(i)
 
-        id1 = random.randrange(len(currSol)) # escolhemos uma interseção para alterar
+        id1 = random.randrange(len(currSol))
 
-        if index == 0: # randomly generate traffic light duration
+        if index == 0:  # randomly generate traffic light duration
             newSol[id1].set_traffic_lights(self.changeTrafficlightDuration(currSol[id1].get_traffic_lights()))
 
-        elif index == 1: #randomly swaps two traffic lights in the cycle
+        elif index == 1:  # randomly swaps two traffic lights in the cycle
             while len(currSol[id1].get_traffic_lights()) < 2:
                 id1 = random.randrange(len(currSol))
             newSol[id1].set_traffic_lights(self.swapTrafficlight(currSol[id1].get_traffic_lights()))
         
         return newSol
 
-    def neighbours(self, currSol : list):
+    def neighbours(self, currSol: list):
         '''
         Generates all possible solutions for a solution
         '''
@@ -91,10 +91,10 @@ class HillClimbing:
                     currSol = self.simulation.output_state()
                     currScore = neighbourScore
                     it = 0
-                print("Current best solution : ", currScore ," ", round(100 * (it / iterations),2)," %", end='\r')
-        return (currSol, currScore)
+                print("Current best solution : ", currScore, " ", round(100 * (it / iterations), 2), " %", end='\r')
+        return currSol, currScore
 
-    def run(self,iterations):
+    def run(self, iterations):
         '''
         Hill-climbing optimization technique
         '''
@@ -115,5 +115,5 @@ class HillClimbing:
                 currSol = self.simulation.output_state()
                 currScore = neighbourScore
                 it = 0
-            print("Current best solution : ", currScore ," ", round(100 * (it / iterations),2)," %", end='\r')
-        return (currSol, currScore)
+            print("Current best solution : ", currScore," ", round(100 * (it / iterations), 2), " %", end='\r')
+        return currSol, currScore
