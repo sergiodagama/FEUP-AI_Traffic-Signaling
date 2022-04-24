@@ -94,7 +94,7 @@ class GloriousEvolution:
                 if best_gen_score > best_score:
                     best_score = best_gen_score
                     self.best_simulation = sim.output_state_copy()
-        print("")
+        print("\n")
         print("best round score: "+ str(best_score))
         for i in range(self.number_of_generations):
             self.reproduce()
@@ -109,8 +109,13 @@ class GloriousEvolution:
                         self.best_simulation = sim.output_state_copy()
             sys.stdout.write("\x1b[1A\x1b[2K")
             sys.stdout.write("\x1b[1A\x1b[2K")
+            sys.stdout.write("\x1b[1A\x1b[2K")
+            load = (i*20)//self.number_of_generations
             print("best overall score: " + str(best_score)+", best round score: "+ str(best_gen_score)+ 
-                "\n["+ str(i+1) + " out of " + str(self.number_of_generations)+ "] generations complete")
+                "\n["+ str(i+1) + " out of " + str(self.number_of_generations)+ "] generations complete"+
+                "\nLoading[{}{}]".format('#'*load,' '*(20-load)))
+        sys.stdout.write("\x1b[1A\x1b[2K")
+        print("Loading[{}]".format('#'*20))
         print("                                                                      ")
         print("Success! Best score on final generation was: " + str(best_score))
         return self.best_simulation
