@@ -164,9 +164,9 @@ def cli():
                          population_size <= 0 or 
                          number_of_generations <= 0):
                         continue
-
+                    plot_name = "docs/plots/"+city_string.split("/")[2] + "_param_"+str(population_size)+"_"+str(number_of_generations)+"_"+str(radiation_dosage)
                     ev = GloriousEvolution(city_plan_data, radiation_dosage, population_size, number_of_generations)
-                    best_state = ev.run()
+                    best_state = ev.run(plot_name)
                     break
 
             elif algo == 4:
