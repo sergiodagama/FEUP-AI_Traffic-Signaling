@@ -123,14 +123,14 @@ def cli():
                         break
 
                     print("Choose the initial temperature: ")
-                    t0 = get_input()
+                    t0 = get_input_float()
 
                     print("Choose the number of the algorithm iterations: ")
                     iterations = get_input()
 
                     if cooling > 4:
                         print("Choose the final temperature: ")
-                        tn = get_input()
+                        tn = get_input_float()
 
                     if 0 > cooling > number_of_coolings or iterations <= 0 or t0 <= 0 or tn < 0:
                         print("You have chosen invalid options!\nPlease try again")

@@ -102,8 +102,8 @@ class SimulatedAnnealing:
 
     def accept_with_prob(self, values_diff, t):
         try:
-            if t != 0:
-                return random.random() < math.exp(values_diff / t)
+            if t > 0 and t > random.randint(1, 100):
+                return random.randint(0, 2) < math.exp(values_diff / t)
             else:
                 return False
         except OverflowError:
@@ -154,7 +154,7 @@ class SimulatedAnnealing:
 
             self.simulation.set_state(current_state)
 
-        plt.plot(i_values, s_values, color='green', linewidth=2, marker='o', markerfacecolor='blue', markersize=4)
+        plt.plot(i_values, s_values, color='green', linewidth=2)
         plt.ylabel('Score')
         plt.xlabel('Iteration')
         plt.show()
